@@ -1,5 +1,7 @@
 # --- ensure project root in sys.path ---
 import sys, os, time
+import allure
+from _pytest.config import Config 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
@@ -226,12 +228,32 @@ def attach_png_to_report(request, driver, name: str):
 @pytest.fixture
 def evidencia(request, driver):
     """
-    Helper fixture por si quieres usar algo como:
+    Helper:
         evidencia("antes_de_submit")
-    dentro de un test.
+
+    Hace 3 cosas:
+    - Guarda PNG en reports/screenshots
+    - Lo adjunta al reporte HTML (pytest-html)
+    - Lo adjunta al reporte de Allure
     """
     def _take(name: str):
+        # 1) Screenshot como bytes (para Allure)
+        png_bytes = driver.get_screenshot_as_png()
+
+        # 2) Adjuntar a Allure
+        try:
+            allure.attach(
+                png_bytes,
+                name=name,
+                attachment_type=allure.attachment_type.PNG,
+            )
+        except Exception:
+            # Por si se ejecuta sin allure-pytest, que no truene
+            pass
+
+        # 3) Mantener tu flujo actual (disco + pytest-html)
         return snap_and_attach(request, driver, name)
+
     return _take
 
 # ========================
@@ -257,17 +279,25 @@ def pytest_runtest_makereport(item, call):
             legacy_path = f"screenshots/{item.name}_{ts}.png"
             d.save_screenshot(legacy_path)
 
-            # Y también en reports/ + adjunto al HTML (bonito)
+            # 2) Adjuntar a Allure
             try:
-                from _pytest.config import Config  # evitar lints
-                # Intentar adjuntar al HTML
+                png_bytes = d.get_screenshot_as_png()
+                allure.attach(
+                    png_bytes,
+                    name=f"FAIL_{item.name}",
+                    attachment_type=allure.attachment_type.PNG,
+                )
+            except Exception:
+                pass
+
+            # 3) Adjuntar al HTML y guardar en reports/
+            try:
                 pytest_html = item.config.pluginmanager.getplugin("html")
                 if pytest_html:
                     png_bytes = d.get_screenshot_as_png()
                     extra = getattr(item, "extra", [])
                     extra.append(pytest_html.extras.png(png_bytes, f"FAIL_{item.name}"))
                     item.extra = extra
-                    # además mantener copia en reports/
                     save_screenshot_file(d, f"FAIL_{item.name}")
             except Exception:
                 pass

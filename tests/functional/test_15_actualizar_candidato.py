@@ -1,5 +1,6 @@
 import pytest
 import random
+import allure
 from faker import Faker
 from datetime import date
 from urllib.parse import urljoin
@@ -15,9 +16,20 @@ from pages.candidate_home_page import CandidateHomePage
 from pages.candidate_profile_page import CandidateProfilePage
 
 
+@allure.epic("Portal de Candidatos")
+@allure.feature("Perfil de candidato")
+@allure.story("Actualización de datos de contacto desde el perfil")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Jose Lucero")
+@allure.link(
+    "https://mi-matriz-casos/CANDIDATO_DATOS_PERSONALES_01",
+    name="CANDIDATO_DATOS_PERSONALES_01",
+)
 @pytest.mark.functional
 @pytest.mark.e2e
+@pytest.mark.regression
 @pytest.mark.case("CANDIDATO_DATOS_PERSONALES_01")
+@pytest.mark.tester("Jose")
 def test_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
     """
     Escenario:
@@ -26,76 +38,96 @@ def test_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, e
     3. Actualiza el teléfono y el correo alterno en su perfil.
     4. Guarda los cambios y verifica que se muestre un mensaje de éxito.
     """
+    allure.dynamic.title(
+        "Candidato - Actualizar teléfono desde 'Mi perfil' y ver mensaje de éxito"
+    )
 
     # 1) Login como candidato
-    login_page = LoginPage(driver, base_url)
-    login_page.open_login()
-    evidencia("candidato_login__form_visible")
+    with allure.step("Login como candidato"):
+        login_page = LoginPage(driver, base_url)
+        login_page.open_login()
+        evidencia("candidato_login__form_visible")
 
-    login_page.login_as(candidate_creds["email"], candidate_creds["password"])
-    assert login_page.is_logged_in(), "El candidato no quedó autenticado tras el login válido."
-    evidencia("candidato_login__ok")
+        login_page.login_as(candidate_creds["email"], candidate_creds["password"])
+        assert login_page.is_logged_in(), "El candidato no quedó autenticado tras el login válido."
+        evidencia("candidato_login__ok")
 
     # 2) Home del candidato: validar que cargó y dar clic en 'Ingresar datos personales'
-    candidate_home = CandidateHomePage(driver, base_url)
-    candidate_home.wait_home_loaded()
-    evidencia("candidato_home__visible")
+    with allure.step("Desde el home, abrir el menú del avatar y seleccionar 'Mi perfil'"):
+        candidate_home = CandidateHomePage(driver, base_url)
+        candidate_home.wait_home_loaded()
+        evidencia("candidato_home__visible")
 
-    # Abrir menú del avatar y luego 'Mi perfil'
-    candidate_home.open_profile()
-    evidencia("perfil_candidato__perfil_desde_menu")
+        # Abrir menú del avatar y luego 'Mi perfil'
+        candidate_home.open_profile()
+        evidencia("perfil_candidato__perfil_desde_menu")
 
     # 3) Página de perfil: vista resumen
-    perfil_page = CandidateProfilePage(driver, base_url)
-    perfil_page.wait_loaded()
-    evidencia("perfil_edit__perfil_visible")
+    with allure.step("Ver pantalla de perfil y navegar a edición de información personal"):
+        perfil_page = CandidateProfilePage(driver, base_url)
+        perfil_page.wait_loaded()
+        evidencia("perfil_edit__perfil_visible")
 
-    # Hacer clic en 'Editar mi perfil'
-    perfil_page.click_editar_perfil()
-    evidencia("perfil_edit__click_editar_perfil")
+        # Hacer clic en 'Editar mi perfil'
+        perfil_page.click_editar_perfil()
+        evidencia("perfil_edit__click_editar_perfil")
 
-    # 4) Cerrar modal Información Laboral si aparece
-    perfil_page.close_info_modal_if_present()
-    evidencia("perfil_edit__modal_info_laboral_cerrado")
+        # 4) Cerrar modal Información Laboral si aparece
+        perfil_page.close_info_modal_if_present()
+        evidencia("perfil_edit__modal_info_laboral_cerrado")
 
-    
+        
 
-    current_url = driver.current_url
-    decoded_url = unquote(current_url)  # decodifica %C3%B3 -> ó
+        current_url = driver.current_url
+        decoded_url = unquote(current_url)  # decodifica %C3%B3 -> ó
 
-    assert decoded_url.rstrip("/").endswith("/información-personal/editar"), (
-        "Se esperaba estar en la ruta de edición de información personal "
-        f"('/información-personal/editar'), pero la URL actual es: {decoded_url}"
-    )
+        assert decoded_url.rstrip("/").endswith("/información-personal/editar"), (
+            "Se esperaba estar en la ruta de edición de información personal "
+            f"('/información-personal/editar'), pero la URL actual es: {decoded_url}"
+        )
 
-    time.sleep(2)  # pequeña espera para evitar issues de renderizado lento
+        time.sleep(2)  # pequeña espera para evitar issues de renderizado lento
 
     # 5) Actualizar Teléfono con un valor aleatorio válido
-    nuevo_telefono = perfil_page.update_phone_with_random()
-    evidencia("perfil_edit__telefono_actualizado")
+    with allure.step("Actualizar teléfono y guardar cambios"):
+        nuevo_telefono = perfil_page.update_phone_with_random()
+        evidencia("perfil_edit__telefono_actualizado")
 
-    # 6) Hacer clic en 'Actualizar mis datos'
-    perfil_page.click_actualizar_datos()
-    evidencia("perfil_edit__click_actualizar_datos")
+        # 6) Hacer clic en 'Actualizar mis datos'
+        perfil_page.click_actualizar_datos()
+        evidencia("perfil_edit__click_actualizar_datos")
 
-    # 7) Confirmar en el modal dando clic en 'Sí'
-    perfil_page.confirm_update()
-    evidencia("perfil_edit__confirmacion_si")
+        # 7) Confirmar en el modal dando clic en 'Sí'
+        perfil_page.confirm_update()
+        evidencia("perfil_edit__confirmacion_si")
 
     # 8) Esperar mensaje de éxito 'Información actualizada con éxito'
-    perfil_page.wait_for_success_message()
-    evidencia("perfil_edit__mensaje_exito")
+    with allure.step("Verificar mensaje de éxito y retorno al perfil"):
+        perfil_page.wait_for_success_message()
+        evidencia("perfil_edit__mensaje_exito")
 
-    # (Opcional) Verificar que nos llevó de regreso al perfil
-    decoded_after = unquote(driver.current_url)
-    assert "/perfil" in decoded_after, (
-        "Luego de actualizar los datos se esperaba volver a '/perfil', "
-        f"pero la URL actual es: {decoded_after}"
-    )
+        # (Opcional) Verificar que nos llevó de regreso al perfil
+        decoded_after = unquote(driver.current_url)
+        assert "/perfil" in decoded_after, (
+            "Luego de actualizar los datos se esperaba volver a '/perfil', "
+            f"pero la URL actual es: {decoded_after}"
+        )
 
+@allure.epic("Portal de Candidatos")
+@allure.feature("Perfil de candidato")
+@allure.story("Validación de campos obligatorios en edición de perfil")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Jose Lucero")
+@allure.link(
+    "https://mi-matriz-casos/CANDIDATO_DATOS_PERSONALES_02",
+    name="CANDIDATO_DATOS_PERSONALES_02",
+)
 @pytest.mark.functional
 @pytest.mark.e2e
+@pytest.mark.negative
+@pytest.mark.regression
 @pytest.mark.case("CANDIDATO_DATOS_PERSONALES_02")
+@pytest.mark.tester("Jose")
 def test_candidato_no_actualiza_con_campos_obligatorios_vacios(
     driver,
     base_url,
@@ -112,63 +144,73 @@ def test_candidato_no_actualiza_con_campos_obligatorios_vacios(
     5. Verifica que NO se redirija al perfil y que NO aparezca el mensaje de éxito.
     """
 
-    # 1) Login como candidato
-    login_page = LoginPage(driver, base_url)
-    login_page.open_login()
-    evidencia("candidato_login__form_visible_neg")
-
-    login_page.login_as(candidate_creds["email"], candidate_creds["password"])
-    assert login_page.is_logged_in(), "El candidato no quedó autenticado tras el login válido."
-    evidencia("candidato_login__ok_neg")
-
-    # 2) Home del candidato: validar que cargó y dar clic en 'Mi perfil'
-    candidate_home = CandidateHomePage(driver, base_url)
-    candidate_home.wait_home_loaded()
-    evidencia("candidato_home__visible_neg")
-
-    candidate_home.open_profile()
-    evidencia("perfil_candidato__perfil_desde_menu_neg")
-
-    # 3) Página de perfil: vista resumen
-    perfil_page = CandidateProfilePage(driver, base_url)
-    perfil_page.wait_loaded()
-    evidencia("perfil_edit__perfil_visible_neg")
-
-    # Clic en 'Editar mi perfil'
-    perfil_page.click_editar_perfil()
-    evidencia("perfil_edit__click_editar_perfil_neg")
-
-    # Cerrar modal Información Laboral si aparece
-    perfil_page.close_info_modal_if_present()
-    evidencia("perfil_edit__modal_info_laboral_cerrado_neg")
-
-    # Verificar que estamos en la ruta de edición
-    decoded_url = unquote(driver.current_url)
-    assert decoded_url.rstrip("/").endswith("/información-personal/editar"), (
-        f"Se esperaba estar en '/información-personal/editar', pero la URL actual es: {decoded_url}"
+    allure.dynamic.title(
+        "Candidato - No permite actualizar perfil con campos obligatorios vacíos"
     )
 
-    time.sleep(2)  # pequeña espera por renderizado
+    # 1) Login como candidato
+    with allure.step("Login como candidato"):
+        login_page = LoginPage(driver, base_url)
+        login_page.open_login()
+        evidencia("candidato_login__form_visible_neg")
+
+        login_page.login_as(candidate_creds["email"], candidate_creds["password"])
+        assert login_page.is_logged_in(), "El candidato no quedó autenticado tras el login válido."
+        evidencia("candidato_login__ok_neg")
+
+    # 2) Home del candidato: validar que cargó y dar clic en 'Mi perfil'
+    with allure.step("Desde el home, abrir el menú del avatar y seleccionar 'Mi perfil'"):
+        candidate_home = CandidateHomePage(driver, base_url)
+        candidate_home.wait_home_loaded()
+        evidencia("candidato_home__visible_neg")
+
+        candidate_home.open_profile()
+        evidencia("perfil_candidato__perfil_desde_menu_neg")
+
+    # 3) Página de perfil: vista resumen
+    with allure.step("Ver pantalla de perfil y navegar a edición de información personal"):
+        perfil_page = CandidateProfilePage(driver, base_url)
+        perfil_page.wait_loaded()
+        evidencia("perfil_edit__perfil_visible_neg")
+
+        # Clic en 'Editar mi perfil'
+        perfil_page.click_editar_perfil()
+        evidencia("perfil_edit__click_editar_perfil_neg")
+
+        # Cerrar modal Información Laboral si aparece
+        perfil_page.close_info_modal_if_present()
+        evidencia("perfil_edit__modal_info_laboral_cerrado_neg")
+
+        # Verificar que estamos en la ruta de edición
+        decoded_url = unquote(driver.current_url)
+        assert decoded_url.rstrip("/").endswith("/información-personal/editar"), (
+            f"Se esperaba estar en '/información-personal/editar', pero la URL actual es: {decoded_url}"
+        )
+
+        time.sleep(2)  # pequeña espera por renderizado
 
     # 4) Dejar campos obligatorios vacíos
-    perfil_page.clear_required_fields_for_negative_test()
-    evidencia("perfil_edit__campos_obligatorios_vacios")
+    with allure.step("Borrar campos obligatorios (teléfono y correo alterno)"):
+        perfil_page.clear_required_fields_for_negative_test()
+        evidencia("perfil_edit__campos_obligatorios_vacios")
 
     # 5) Clic en 'Actualizar mis datos'
-    perfil_page.click_actualizar_datos()
-    evidencia("perfil_edit__click_actualizar_datos_campos_vacios")
+    with allure.step("Intentar actualizar con campos obligatorios vacíos"):
+        perfil_page.click_actualizar_datos()
+        evidencia("perfil_edit__click_actualizar_datos_campos_vacios")
 
-    # Confirmar solo si aparece el popconfirm
-    perfil_page.confirm_update()
-    evidencia("perfil_edit__confirmacion_si_campos_vacios")
+        # Confirmar solo si aparece el popconfirm
+        perfil_page.confirm_update()
+        evidencia("perfil_edit__confirmacion_si_campos_vacios")
 
     # 6) Validaciones:
     #   - No debe redirigir al perfil
-    assert perfil_page.is_on_edit_page(), (
-        "No debió redirigir a la vista de perfil con campos obligatorios vacíos."
-    )
+    with allure.step("Verificar que no se redirige al perfil ni se muestra mensaje de éxito"):
+        assert perfil_page.is_on_edit_page(), (
+            "No debió redirigir a la vista de perfil con campos obligatorios vacíos."
+        )
 
-    #   - No debe aparecer mensaje de éxito
-    assert not perfil_page.has_success_message(), (
-        "No debería mostrarse 'Información actualizada con éxito' con datos incompletos."
-    )
+        #   - No debe aparecer mensaje de éxito
+        assert not perfil_page.has_success_message(), (
+            "No debería mostrarse 'Información actualizada con éxito' con datos incompletos."
+        )
