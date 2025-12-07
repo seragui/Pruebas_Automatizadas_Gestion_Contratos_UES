@@ -7,6 +7,8 @@ screenshots/
 allure-results/
 allure-report/
 .pytest_cache/
+allure-results_prueba/
+pruebas_automatizadas.zip
 
 # Python
 __pycache__/

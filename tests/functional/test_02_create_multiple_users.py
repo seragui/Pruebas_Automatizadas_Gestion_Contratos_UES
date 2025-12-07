@@ -10,6 +10,7 @@ from pages.home_page import HomePage
 from pages.users_page import UsersPage
 from pages.create_user_page import CreateUserPage
 
+
 # (rol, needs_school, expected_ok)
 ROLES = [
     pytest.param("Administrador",False, True, id="Administrador"),
@@ -50,16 +51,16 @@ ROLES = [
 @pytest.mark.case("USUARIOS_CREAR_POR_ROL_01")
 @pytest.mark.tester("Ronald")  
 @pytest.mark.parametrize("role,needs_school,expected_ok", ROLES)
-def test_crear_usuario_por_rol_con_resultado(driver, base_url, qa_creds, role, needs_school, expected_ok, evidencia):
+def test_cp03_crear_usuario_por_rol_con_resultado(driver, base_url, qa_creds, role, needs_school, expected_ok, evidencia):
     fake = Faker()
 
     # ===== (Opcional) Habilitar captura de red vía CDP para ver el status HTTP =====
     # Esto no rompe si no está disponible; simplemente no valida status si falla la suscripción.
     captured_status = {"code": None, "url": None}
     try:
-        from selenium.webdriver.common.devtools.v129 import network as devtools_network
         devtools = driver.devtools
         devtools.create_session()
+        from selenium.webdriver.common.devtools.v129 import network as devtools_network
         devtools.send(devtools_network.enable())
 
         def _on_response(resp):

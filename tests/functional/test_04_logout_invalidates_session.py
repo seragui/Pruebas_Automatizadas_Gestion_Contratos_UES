@@ -22,7 +22,7 @@ from selenium.common.exceptions import TimeoutException
 @pytest.mark.smoke
 @pytest.mark.case("CP_02_LOGOUT_INVALIDA_SESION")
 @pytest.mark.tester("Ronald")
-def test_logout_invalidates_session(driver, base_url, qa_creds, evidencia):
+def test_cp02_logout_invalidates_session(driver, base_url, qa_creds, evidencia):
     """
     CP_02 - Logout invalida sesión
     1) Login con usuario válido

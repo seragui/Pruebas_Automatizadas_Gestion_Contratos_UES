@@ -45,7 +45,7 @@ def assert_nombre_en_header(candidate_name: str, header_text: str):
 @pytest.mark.regression
 @pytest.mark.case("RRHH_CONTROL_DATOS_01")
 @pytest.mark.tester("Jose")
-def test_rrhh_busca_candidato_y_abre_control_datos(
+def test_cp90_rrhh_busca_candidato_y_abre_control_datos(
     driver,
     base_url,
     rrhh_creds,

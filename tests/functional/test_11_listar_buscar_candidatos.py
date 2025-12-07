@@ -19,7 +19,7 @@ from pages.rrhh_candidates_registered_page import RRHHCandidatesRegisteredPage
 @pytest.mark.regression
 @pytest.mark.case("RRHH_CANDIDATO_REGISTRADO_01")
 @pytest.mark.tester("Ronald")
-def test_rrhh_ve_candidato_en_candidatos_registrados(
+def test_cp14_rrhh_ve_candidato_en_candidatos_registrados(
     driver,
     base_url,
     rrhh_creds,
@@ -89,7 +89,7 @@ def test_rrhh_ve_candidato_en_candidatos_registrados(
 @pytest.mark.regression
 @pytest.mark.case("RRHH_CANDIDATOS_NO_DATOS_01")
 @pytest.mark.tester("Ronald")
-def test_rrhh_busca_candidato_inexistente_y_ve_no_hay_datos(
+def test_cp14_rrhh_busca_candidato_inexistente_y_ve_no_hay_datos(
     driver,
     base_url,
     rrhh_creds,

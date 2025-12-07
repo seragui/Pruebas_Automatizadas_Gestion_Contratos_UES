@@ -23,7 +23,7 @@ from selenium.webdriver.common.by import By
 @pytest.mark.smoke
 @pytest.mark.case("USUARIOS_BUSCAR_Y_ABRIR_EDICION_01")
 @pytest.mark.tester("Ronald")
-def test_buscar_usuario_por_nombre_y_abrir_edicion(driver, base_url, qa_creds, evidencia):
+def test_cp04_buscar_usuario_por_nombre_y_abrir_edicion(driver, base_url, qa_creds, evidencia):
     nombre = "Pearline Kihn"   # <-- cambia el nombre si lo necesitás
     allure.dynamic.title(f"Buscar usuario '{nombre}' y abrir pantalla de edición")
     
@@ -90,7 +90,7 @@ def test_buscar_usuario_por_nombre_y_abrir_edicion(driver, base_url, qa_creds, e
 @pytest.mark.smoke
 @pytest.mark.case("USUARIOS_EDITAR_ACTUALIZAR_EMAIL_01")
 @pytest.mark.tester("Ronald")
-def test_buscar_usuario_editar_y_actualizar_email(driver, base_url, qa_creds, evidencia):
+def test_cp04_buscar_usuario_editar_y_actualizar_email(driver, base_url, qa_creds, evidencia):
     nombre = "Pearline Kihn"   # <-- cambia el nombre si lo necesitás
     allure.dynamic.title(f"Buscar usuario '{nombre}' y actualizar su email")
     
@@ -172,7 +172,7 @@ def test_buscar_usuario_editar_y_actualizar_email(driver, base_url, qa_creds, ev
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_EDITAR_VALIDACION_NOMBRE_VACIO")
 @pytest.mark.tester("Ronald")
-def test_nombre_vacio_no_permite_actualizar(driver, base_url, qa_creds, evidencia):
+def test_cp04_nombre_vacio_no_permite_actualizar(driver, base_url, qa_creds, evidencia):
 
     nombre = "Pearline Kihn"   # <-- cambia el nombre si lo necesitás
     allure.dynamic.title(
@@ -241,7 +241,7 @@ def test_nombre_vacio_no_permite_actualizar(driver, base_url, qa_creds, evidenci
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_EDITAR_VALIDACION_EMAIL_INVALIDO")
 @pytest.mark.tester("Ronald")
-def test_email_invalido_no_permite_actualizar(driver, base_url, qa_creds, evidencia):
+def test_cp04_email_invalido_no_permite_actualizar(driver, base_url, qa_creds, evidencia):
     nombre = "Prof. Joesph Koepp"   # <-- cambia el nombre si lo necesitás
     allure.dynamic.title(
         f"Editar usuario '{nombre}' - email inválido no permite actualizar"
@@ -326,7 +326,7 @@ def test_email_invalido_no_permite_actualizar(driver, base_url, qa_creds, eviden
     strict=True,
     reason="Mejora pendiente: mostrar 'correo ya en uso' de forma explícita",
 )
-def test_email_duplicado_no_permite_actualizar(driver, base_url, qa_creds, evidencia):
+def test_cp04_email_duplicado_no_permite_actualizar(driver, base_url, qa_creds, evidencia):
 
     nombre = "Toy Wiegand"
     correo_duplicado = "yasmine21@example.com"

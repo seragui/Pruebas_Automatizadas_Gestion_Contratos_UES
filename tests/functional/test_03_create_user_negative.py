@@ -65,7 +65,7 @@ def _assert_se_queda_en_crear(driver, path_before=None):
 @pytest.mark.case("USUARIOS_CREAR_VALIDACION_NOMBRE_VACIO")
 @pytest.mark.tester("Ronald")
 @pytest.mark.smoke
-def test_crear_usuario_nombre_vacio(driver, base_url, qa_creds, evidencia):
+def test_cp03_crear_usuario_nombre_vacio(driver, base_url, qa_creds, evidencia):
     allure.dynamic.title("Crear usuario - Nombre vacío debe mostrar error y no redirigir")
     fake = Faker()
     prefix = "nombre_vacio"
@@ -120,7 +120,7 @@ def test_crear_usuario_nombre_vacio(driver, base_url, qa_creds, evidencia):
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_CREAR_VALIDACION_EMAIL_VACIO")
 @pytest.mark.tester("Ronald")
-def test_crear_usuario_email_vacio(driver, base_url, qa_creds, evidencia):
+def test_cp03_crear_usuario_email_vacio(driver, base_url, qa_creds, evidencia):
     allure.dynamic.title("Crear usuario - Email vacío debe mostrar error y no redirigir")
     fake = Faker()
     prefix = "email_vacio"
@@ -172,7 +172,7 @@ def test_crear_usuario_email_vacio(driver, base_url, qa_creds, evidencia):
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_CREAR_VALIDACION_EMAIL_INVALIDO")
 @pytest.mark.tester("Ronald")
-def test_crear_usuario_email_invalido(driver, base_url, qa_creds, evidencia):
+def test_cp03_crear_usuario_email_invalido(driver, base_url, qa_creds, evidencia):
     """
     Camino negativo: el email tiene formato inválido, no debe permitir crear
     y debe marcar error visual en el campo Email.
@@ -187,7 +187,6 @@ def test_crear_usuario_email_invalido(driver, base_url, qa_creds, evidencia):
     with allure.step("Completar formulario con email en formato inválido"):
         nombre = f"Neg_EmailInvalido {fake.first_name()}"
         email_invalido = "correo-invalido"  # sin @ ni dominio; puedes probar "user@dominio" también
-
         create.set_name(nombre)
         create.set_email(email_invalido)
         create.select_role("Candidato")
@@ -229,7 +228,7 @@ def test_crear_usuario_email_invalido(driver, base_url, qa_creds, evidencia):
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_CREAR_VALIDACION_SIN_ROL")
 @pytest.mark.tester("Ronald")
-def test_crear_usuario_sin_rol(driver, base_url, qa_creds, evidencia):
+def test_cp03_crear_usuario_sin_rol(driver, base_url, qa_creds, evidencia):
     """
     Camino negativo: no seleccionar Rol.
     Debe bloquear el envío, quedarse en /usuarios/crear
@@ -288,7 +287,7 @@ def test_crear_usuario_sin_rol(driver, base_url, qa_creds, evidencia):
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_CREAR_VALIDACION_SIN_ESCUELA")
 @pytest.mark.tester("Ronald")
-def test_candidato_sin_escuela_muestra_error(driver, base_url, qa_creds, evidencia):
+def test_cp03_candidato_sin_escuela_muestra_error(driver, base_url, qa_creds, evidencia):
     allure.dynamic.title("Crear candidato - Sin escuela debe mostrar error y no redirigir")
     fake = Faker()
     prefix = "candidato_sin_escuela"
@@ -359,7 +358,7 @@ def test_candidato_sin_escuela_muestra_error(driver, base_url, qa_creds, evidenc
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_CREAR_VALIDACION_EMAIL_DUPLICADO")
 @pytest.mark.tester("Ronald")
-def test_crear_usuario_email_duplicado(driver, base_url, qa_creds, evidencia):
+def test_cp03_crear_usuario_email_duplicado(driver, base_url, qa_creds, evidencia):
     """
     Camino negativo: el email ya existe en el sistema.
     Debe mostrarse un toast de error y NO debe redirigir a /usuarios.

@@ -8,7 +8,7 @@ from datetime import datetime
 from pages.login_page import LoginPage
 from pages.contracts_list_page import ContractsListPage, ContractCreateWizard
 from pages.contract_detail_page import ContractDetailPage
-from pages.director_home_page import DirectorHomePage  # si ya lo tenés
+from pages.director_home_page import DirectorHomePage  
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -48,7 +48,7 @@ def generar_codigo_jp():
 @pytest.mark.e2e
 @pytest.mark.case("CONTRATO_CREAR_SOLICITUD_01")
 @pytest.mark.tester("Ronald")
-def test_crear_solicitud_contrato(driver, base_url, evidencia, cod_cache ):
+def test_cp30_crear_solicitud_contrato(driver, base_url, evidencia, cod_cache ):
     """
     Escenario:
     1. Director inicia sesión.
@@ -160,7 +160,7 @@ def test_crear_solicitud_contrato(driver, base_url, evidencia, cod_cache ):
 @pytest.mark.e2e
 @pytest.mark.case("CONTRATO_AGREGAR_CANDIDATO_01")
 @pytest.mark.tester("Ronald")
-def test_agregar_candidato_a_solicitud_contrato(driver, base_url, evidencia, cod_cache, candidate_name_cache, materia_grupo_label):
+def test_cp_31_agregar_candidato_a_solicitud_contrato(driver, base_url, evidencia, cod_cache, candidate_name_cache, materia_grupo_label):
     """
     Escenario:
     1. Recuperar el código de solicitud creado previamente (cache).
@@ -307,7 +307,7 @@ def test_agregar_candidato_a_solicitud_contrato(driver, base_url, evidencia, cod
 @pytest.mark.e2e
 @pytest.mark.case("CONTRATO_ENVIAR_RRHH_01")
 @pytest.mark.tester("Ronald")
-def test_enviar_solicitud_a_rrhh(driver, base_url, evidencia, cod_cache):
+def test_cp33_enviar_solicitud_a_rrhh(driver, base_url, evidencia, cod_cache):
     """
     Escenario:
     1. Recuperar código de solicitud en curso (cache).
@@ -412,7 +412,7 @@ def test_enviar_solicitud_a_rrhh(driver, base_url, evidencia, cod_cache):
 @pytest.mark.e2e
 @pytest.mark.case("RRHH_VALIDAR_SOLICITUD_01")
 @pytest.mark.tester("Ronald")
-def test_validar_solicitud_rrhh(driver, base_url, evidencia, cod_cache):
+def test_cp34_validar_solicitud_rrhh(driver, base_url, evidencia, cod_cache):
     """
     Escenario:
     1. Recuperar el código de la solicitud desde cache.
@@ -489,7 +489,7 @@ def test_validar_solicitud_rrhh(driver, base_url, evidencia, cod_cache):
 @pytest.mark.e2e
 @pytest.mark.case("CONTRATO_ENVIAR_SECRETARIA_01")
 @pytest.mark.tester("Ronald")
-def test_enviar_solicitud_a_secretaria(driver, base_url, evidencia, cod_cache):
+def test_cp35_enviar_solicitud_a_secretaria(driver, base_url, evidencia, cod_cache):
     """
     Escenario:
     1. Recuperar código de la solicitud desde cache.
@@ -547,7 +547,7 @@ def test_enviar_solicitud_a_secretaria(driver, base_url, evidencia, cod_cache):
 
 @allure.epic("Gestión de Contratos")
 @allure.feature("Bandeja de Recepción - Asistente")
-@allure.story("Asistente navega a la bandeja de recepción de solicitudes")
+@allure.story("Asistente Administrativo navega a la bandeja de recepción de solicitudes")
 @allure.severity(allure.severity_level.NORMAL)
 @allure.label("owner", "Ronald Aguilar")
 @allure.link(
@@ -558,7 +558,7 @@ def test_enviar_solicitud_a_secretaria(driver, base_url, evidencia, cod_cache):
 @pytest.mark.e2e
 @pytest.mark.case("CP_ASISTENTE_Recepcion_Navegar")
 @pytest.mark.tester("Ronald")
-def test_asistente_navega_a_recepcion(driver, base_url, evidencia, cod_cache):
+def test_cp40_asistente_navega_a_recepcion(driver, base_url, evidencia, cod_cache):
     """
     Escenario:
     1. Asistente inicia sesión.
@@ -640,7 +640,7 @@ def _ensure_min_pdf(path: str) -> str:
 @pytest.mark.e2e
 @pytest.mark.case("CP_ASISTENTE_Subir_Acuerdo_Junta")
 @pytest.mark.tester("Ronald")
-def test_asistente_subir_acuerdo(driver, base_url, evidencia, cod_cache):
+def test_cp41_asistente_subir_acuerdo(driver, base_url, evidencia, cod_cache):
     """
     Escenario:
     1. Recuperar código de la solicitud desde cache.
@@ -724,7 +724,7 @@ def test_asistente_subir_acuerdo(driver, base_url, evidencia, cod_cache):
 @pytest.mark.e2e
 @pytest.mark.case("CP_RRHH_Generar_Contratos")
 @pytest.mark.tester("Ronald")
-def test_generar_contratos_rrhh(driver, base_url, evidencia, cod_cache):
+def test_cp42_generar_contratos_rrhh(driver, base_url, evidencia, cod_cache):
     """
     Escenario:
     1. Recuperar código de solicitud desde cache.

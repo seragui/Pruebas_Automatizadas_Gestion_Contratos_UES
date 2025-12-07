@@ -30,7 +30,7 @@ from pages.candidate_profile_page import CandidateProfilePage
 @pytest.mark.regression
 @pytest.mark.case("CANDIDATO_DATOS_PERSONALES_01")
 @pytest.mark.tester("Jose")
-def test_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
+def test_cp13_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
     """
     Escenario:
     1. El candidato inicia sesión en el sistema.
@@ -128,7 +128,7 @@ def test_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, e
 @pytest.mark.regression
 @pytest.mark.case("CANDIDATO_DATOS_PERSONALES_02")
 @pytest.mark.tester("Jose")
-def test_candidato_no_actualiza_con_campos_obligatorios_vacios(
+def test_cp13_candidato_no_actualiza_con_campos_obligatorios_vacios(
     driver,
     base_url,
     candidate_creds,

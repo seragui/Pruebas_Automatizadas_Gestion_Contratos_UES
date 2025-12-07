@@ -1,8 +1,7 @@
 {
 	"info": {
-		"_postman_id": "0c9c25be-4bf5-4a17-8015-7f426274a770",
-		"name": "GESTION_CONTRATOS",
-		"description": "## GESTION_CONTRATOS\n\n### Descripción General\n\nLa colección **GESTION_CONTRATOS** agrupa los endpoints y flujos necesarios para la gestión integral de contratos, usuarios, facultades, escuelas, actividades, bancos y candidatos en el sistema. Está diseñada para cubrir los procesos de autenticación, registro, validación, administración y control de los distintos recursos involucrados en la gestión de contratos académicos y administrativos.\n\n### Estructura de la Colección\n\nLa colección está organizada en carpetas temáticas para facilitar la navegación y el uso de los endpoints:\n\n- **USUARIOS**: Endpoints para autenticación, registro, consulta y administración de usuarios.\n- **SEGURIDAD**: Pruebas y validaciones relacionadas con la seguridad de la API.\n- **CONTRATOS**: Flujos completos para la solicitud, validación, generación y finalización de contratos.\n- **CICLOS**: Gestión de ciclos académicos (semestres).\n- **ESCUELAS**: Administración de escuelas asociadas a facultades.\n- **ACTIVIDADES**: Endpoints para la gestión de actividades académicas.\n- **FORMATOS**: Descarga y consulta de formatos y plantillas.\n- **BANCOS**: Administración de bancos asociados a los procesos de contratación.\n- **FACULTADES**: Endpoints para la creación, edición, consulta y eliminación de facultades.\n- **EMPLEADO**: Registro y actualización de información personal de empleados.\n- **CANDIDATOS**: Registro, validación y gestión de candidatos.\n\n### Variables de Entorno\n\nLa colección utiliza variables de entorno para facilitar la configuración y reutilización de datos sensibles o dinámicos, como:\n\n- `base_url`: URL base del API.\n- `token_admin`, `token_secretaria`, `token_rrhh`, `token_director`, `token_candidato`: Tokens de autenticación para distintos roles.\n- `faculty_id`, `schoolId`, `person_id`, `bank_id`, etc.: Identificadores dinámicos capturados durante la ejecución de los flujos.\n\nSe recomienda seleccionar el entorno adecuado (por ejemplo, `QA_GESTION_CONTRATOS`) antes de ejecutar los requests.\n\n### Scripts y Automatización\n\n- **Pre-request scripts**: Automatizan la autenticación y el manejo de headers según el rol seleccionado.\n- **Tests**: Validan la estructura de las respuestas, capturan IDs generados y verifican el correcto funcionamiento de los endpoints.\n- **Uso de CSV**: Es posible automatizar flujos usando archivos CSV en el Collection Runner para pruebas masivas o de integración.\n\n### Buenas Prácticas\n\n- Ejecuta primero los endpoints de autenticación para obtener los tokens necesarios.\n- Sigue el flujo sugerido en cada carpeta para simular procesos completos (por ejemplo, creación y validación de contratos).\n- Utiliza los scripts de tests para capturar variables dinámicas y reutilizarlas en requests posteriores.\n- Consulta los ejemplos y tests incluidos para entender los posibles escenarios de éxito y error (por ejemplo, validación de duplicados, errores 422, etc.).\n\n---\n\nLa tarea se considerará completa cuando la descripción esté visible en la colección.",
+		"_postman_id": "c2b87ce9-41c4-4d4d-8561-3dc29895e819",
+		"name": "GESTION_CONTRATOS_SIN_CONTRATACION",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42161334"
 	},
@@ -29,6 +28,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Login Director - Obtención de Token Para Pruebas ===\");\r",
 									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);\r",
 									"\r",
 									"const d = pm.response.json();\r",
@@ -95,6 +95,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Login Administrador - Obtención de Token Para Pruebas ===\");\r",
 									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);\r",
 									"\r",
 									"const d = pm.response.json();\r",
@@ -161,6 +162,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Login Secretaria Asistente Administrativo - Obtención de Token Para Pruebas ===\");\r",
 									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);\r",
 									"\r",
 									"const d = pm.response.json();\r",
@@ -227,6 +229,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Login Recursos Humanos - Obtención de Token Para Pruebas ===\");",
 									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);",
 									"",
 									"const d = pm.response.json();",
@@ -281,6 +284,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Login Administrador Auxiliar - Obtención de Token Para Pruebas ===\");\r",
 									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);\r",
 									"\r",
 									"const d = pm.response.json();\r",
@@ -347,6 +351,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP01: Iniciar Sesión ===\");\r",
+									"console.log(\"=== Login sin Correo Ni Contraseña ===\");\r",
 									"pm.test(\"401 Unauthorized\", () => pm.expect([401, 422]).to.include(pm.response.code));\r",
 									"let d={}; try{ d=pm.response.json(); }catch(e){}\r",
 									"pm.test(\"Mensaje genérico\", () => {\r",
@@ -426,6 +432,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP01: Iniciar Sesión ===\");\r",
+									"console.log(\"=== Login Con Contraseña Incorrecta ===\");\r",
 									"pm.test(\"401 Unauthorized\", () => pm.expect([401, 422]).to.include(pm.response.code));\r",
 									"let d={}; try{ d=pm.response.json(); }catch(e){}\r",
 									"pm.test(\"Mensaje genérico\", () => {\r",
@@ -492,6 +500,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP01: Iniciar Sesión ===\");\r",
+									"console.log(\"=== Login Con Correo Inexistente ===\");\r",
 									"pm.test(\"401 Unauthorized\", () => pm.expect([401, 422]).to.include(pm.response.code));\r",
 									"let d={}; try{ d=pm.response.json(); }catch(e){}\r",
 									"pm.test(\"Mensaje genérico\", () => {\r",
@@ -557,6 +567,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP01: Iniciar Sesión ===\");\r",
+									"console.log(\"=== Login Con Datos Correctos ===\");\r",
 									"// ==== Asserts básicos\r",
 									"pm.test(\"API RESPONDE EN 200/201 LOGIN\", () => pm.expect(pm.response.code).to.be.oneOf([200,201]));\r",
 									"\r",
@@ -648,6 +660,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP02: Logout invalida sesión ===\");\r",
+									"console.log(\"=== Prueba de Control Antes del Logout ===\");\r",
 									"pm.test(\"Ruta protegida responde 403 con token\", () => pm.expect(pm.response.code).to.eql(403));\r",
 									"pm.test(\"Se envió Bearer\", () => {\r",
 									"  const auth = pm.request.headers.get(\"Authorization\") || \"\";\r",
@@ -710,13 +724,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP02: Logout invalida sesión ===\");\r",
+									"console.log(\"=== Se realiza Logout como parte de la prueba ===\");\r",
 									"pm.test(\"Logout 200/204\", () => pm.expect([200,204]).to.include(pm.response.code));\r",
 									"pm.test(\"Logout con Bearer presente\", () => {\r",
 									"  const auth = pm.request.headers.get(\"Authorization\") || \"\";\r",
 									"  pm.expect(auth).to.match(/^Bearer\\s+/);\r",
-									"});\r",
-									"// NO borrar el token todavía\r",
-									""
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -768,6 +782,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== Caso de Prueba CP02: Logout invalida sesión ===\");\r",
+									"console.log(\"=== Se realiza consulta a ruta protegida con token invalido ===\");\r",
 									"pm.test(\"Acceso denegado con token invalidado\", () => {\r",
 									"  pm.expect([401,403]).to.include(pm.response.code);\r",
 									"});\r",
@@ -835,6 +851,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"console.log(\"=== LOGIN DE CONTROL OBTENCION DE TOKEN ===\");\r",
 									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);\r",
 									"\r",
 									"const d = pm.response.json();\r",
@@ -895,7 +912,7 @@
 									"const runId = pm.environment.get(\"RUN_ID\");",
 									"",
 									"// Número de iteración (si está disponible)",
-									"const currentIteration = typeof pm.info.iteration !== 'undefined' ? pm.info.iteration : 0;",
+									"const iteration = typeof pm.info.iteration !== 'undefined' ? pm.info.iteration : 0;",
 									"",
 									"// Sufijo aleatorio",
 									"const randomSuffix = Math.random().toString(36).substring(2, 8);",
@@ -919,7 +936,7 @@
 									"// Resto del payload",
 									"const role = \"Asistente Administrativo\";",
 									"const payload = { name, email, role };",
-									"pm.request.body.update({mode: 'raw',raw: JSON.stringify(payload, null, 2)});",
+									"pm.request.body.update(JSON.stringify(payload, null, 2));",
 									"console.log(\"[CreateUser] payload ->\", payload);"
 								],
 								"type": "text/javascript",
@@ -1462,16 +1479,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_admin}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -1509,13 +1516,13 @@
 									"pm.test(\"200 OK\", () => pm.expect(pm.response.code).to.eql(200));\r",
 									"\r",
 									"// 2) Respuesta es un arreglo\r",
-									"let usersResponse = [];\r",
-									"try { usersResponse = pm.response.json(); } catch (e) {}\r",
-									"pm.test(\"Devuelve un arreglo\", () => pm.expect(Array.isArray(usersResponse)).to.eql(true));\r",
+									"let data = [];\r",
+									"try { data = pm.response.json(); } catch (e) {}\r",
+									"pm.test(\"Devuelve un arreglo\", () => pm.expect(Array.isArray(data)).to.eql(true));\r",
 									"\r",
 									"// 3) Si hay elementos, validar estructura básica del primero\r",
-									"if (Array.isArray(usersResponse) && usersResponse.length) {\r",
-									"  const u = usersResponse[0];\r",
+									"if (Array.isArray(data) && data.length) {\r",
+									"  const u = data[0];\r",
 									"\r",
 									"  pm.test(\"Campos públicos básicos presentes\", () => {\r",
 									"    pm.expect(u).to.have.property(\"id\");\r",
@@ -1556,7 +1563,7 @@
 									"\r",
 									"pm.test(\"No expone campos sensibles (password/tokens)\", () => {\r",
 									"  const forbidden = [\"password\", \"remember_token\", \"access_token\", \"api_token\", \"plain_password\"];\r",
-									"  pm.expect(hasForbiddenKeys(usersResponse, forbidden)).to.eql(false);\r",
+									"  pm.expect(hasForbiddenKeys(data, forbidden)).to.eql(false);\r",
 									"});\r",
 									"\r",
 									"// 5) (Opcional) Tamaño razonable del payload (sanity check)\r",
@@ -1726,7 +1733,7 @@
 					],
 					"request": {
 						"auth": {
-							
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
@@ -1759,6 +1766,9 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
+									"// Forzamos a usar el token del rol Candidato\r",
+									"pm.variables.set(\"active_role\", \"candidato\");\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -1801,7 +1811,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{token_candidato}}",
+									"value": "{{token_admin}}",
 									"type": "string"
 								}
 							]
@@ -4768,7 +4778,7 @@
 							"script": {
 								"exec": [
 									"if (!pm.environment.get(\"token_admin\")) {\r",
-									"  throw new Error(\"Ejecuta primero el Login Admin para obtener el token_admin.\");\r",
+									"  throw new Error(\"⚠️ Ejecuta primero el Login Admin para obtener el token_admin.\");\r",
 									"}\r",
 									"pm.environment.set(\"token\", pm.environment.get(\"token_admin\"));\r",
 									""
@@ -4782,7 +4792,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"Ejecutando CP_74 – Listar bancos registrados\");\r",
+									"console.log(\"🏦 Ejecutando CP_74 – Listar bancos registrados\");\r",
 									"\r",
 									"pm.test(\"Código 200 OK\", () => {\r",
 									"    pm.expect(pm.response.code).to.eql(200);\r",
@@ -4869,7 +4879,7 @@
 									"",
 									"const res = pm.response.json();",
 									"pm.environment.set(\"bank_id\", res.id);",
-									"console.log(\"Banco creado con ID:\", res.id);",
+									"console.log(\"✅ Banco creado con ID:\", res.id);",
 									""
 								],
 								"type": "text/javascript",
@@ -4954,7 +4964,7 @@
 									"// Setear bank_id como variable local para handlebars",
 									"pm.variables.set(\"bank_id\", bankId);",
 									"",
-									"console.log(\"Editando banco ID:\", bankId, \"nuevo nombre:\", newBankName);"
+									"console.log(\"🔄 Editando banco ID:\", bankId, \"nuevo nombre:\", newBankName);"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -5087,21 +5097,21 @@
 									"",
 									"console.log(`[CP_77] No existe bank_id. Creando banco temporal: ${tmpName}`);",
 									"pm.sendRequest(createReq, (err, res) => {",
-									"  if (err) fail(`[CP_77]  Error creando banco temporal: ${err.message}`);",
-									"  if (!res) fail(\"[CP_77]  Sin respuesta al crear banco temporal\");",
+									"  if (err) fail(`[CP_77] ❌ Error creando banco temporal: ${err.message}`);",
+									"  if (!res) fail(\"[CP_77] ❌ Sin respuesta al crear banco temporal\");",
 									"",
 									"  if (![200, 201].includes(res.code)) {",
-									"    console.error(\"[CP_77]  Respuesta al crear banco temporal:\", res.code, res.text());",
+									"    console.error(\"[CP_77] ⚠️ Respuesta al crear banco temporal:\", res.code, res.text());",
 									"    fail(\"[CP_77] No se pudo crear banco temporal (esperado 200/201).\");",
 									"  }",
 									"",
 									"  let data;",
 									"  try { data = res.json(); } catch (e) {",
-									"    console.error(\"[CP_77]  Respuesta no JSON al crear banco temporal:\", res.text());",
+									"    console.error(\"[CP_77] ⚠️ Respuesta no JSON al crear banco temporal:\", res.text());",
 									"    fail(\"[CP_77] Respuesta no JSON al crear banco temporal.\");",
 									"  }",
 									"",
-									"  if (!data.id) fail(\"[CP_77]  La respuesta al crear banco temporal no contiene 'id'.\");",
+									"  if (!data.id) fail(\"[CP_77] ⚠️ La respuesta al crear banco temporal no contiene 'id'.\");",
 									"  pm.environment.set(\"bank_id\", data.id);",
 									"  pm.environment.set(\"bankId\", data.id); // Para compatibilidad",
 									"  console.log(`[CP_77] Banco temporal creado con id: ${data.id}`);",
@@ -5182,14 +5192,14 @@
 									"\r",
 									"if (!pm.environment.get(\"base_url\")) {\r",
 									"  pm.environment.set(\"base_url\", \"https://gestioncontratos-production.up.railway.app/api\");\r",
-									"  console.log(\" base_url configurada automáticamente\");\r",
+									"  console.log(\"🌐 base_url configurada automáticamente\");\r",
 									"}\r",
 									"\r",
 									"// Selecciona un token de usuario SIN permisos de bancos\r",
 									"let token = pm.environment.get(\"token_rrhh\") || pm.environment.get(\"token_candidato\") || pm.environment.get(\"token_director\");\r",
 									"\r",
 									"if (!token) {\r",
-									"  throw new Error(\" No se encontró token de un rol sin permisos (usa token_rrhh, token_candidato o token_director). Ejecuta primero el login correspondiente.\");\r",
+									"  throw new Error(\"⚠️ No se encontró token de un rol sin permisos (usa token_rrhh, token_candidato o token_director). Ejecuta primero el login correspondiente.\");\r",
 									"}\r",
 									"\r",
 									"pm.environment.set(\"token\", token);\r",
@@ -6656,16 +6666,16 @@
 			"description": "# Carpeta BITACORA\n\nEsta carpeta contiene solicitudes relacionadas con la gestión de bitácoras. Incluye endpoints para listar bitácoras, filtrar por relevancia y fecha, paginar resultados y manejar accesos según roles. A continuación se documentan los endpoints incluidos, su propósito, métodos, parámetros y casos de uso.\n\n---\n\n## Endpoints incluidos\n\n### 1\\. **Listar Bitácoras**\n\n- **Nombre:** CP_19 LISTAR BITACORAS\n    \n- **Método:** `GET`\n    \n- **Endpoint:** `/worklog`\n    \n- **Parámetros:**\n    - Ninguno obligatorio.\n        \n- **Descripción:** Obtiene el listado completo de bitácoras disponibles.\n    \n- **Caso de uso:** Visualizar todas las bitácoras registradas en el sistema.\n    \n\n---\n\n### 2\\. **Filtrar Bitácoras por Relevancia**\n\n- **Nombre:** CP_20 FILTRAR POR RELEVANCIA\n    \n- **Método:** `GET`\n    \n- **Endpoint:** `/worklog?relevance={{filtro_relevancia}}`\n    \n- **Parámetros:**\n    - `relevance` (query, string): Nivel de relevancia por el cual filtrar (ejemplo: \"alta\", \"media\", \"baja\").\n        \n- **Descripción:** Permite filtrar el listado de bitácoras según el nivel de relevancia especificado.\n    \n- **Caso de uso:** Buscar bitácoras que requieren atención prioritaria o de un tipo específico.\n    \n\n---\n\n### 3\\. **Filtrar Bitácoras por Fecha**\n\n- **Nombre:** CP_20 FILTRAR LISTADO DE BITACORA\n    \n- **Método:** `GET`\n    \n- **Endpoint:** `/worklog?date={{filtro_fecha}}`\n    \n- **Parámetros:**\n    - `date` (query, string): Fecha en formato `YYYY-MM-DD` para filtrar las bitácoras.\n        \n- **Descripción:** Filtra las bitácoras por una fecha específica.\n    \n- **Caso de uso:** Consultar bitácoras registradas en una fecha determinada.\n    \n\n---\n\n### 4\\. **Paginación de Bitácoras**\n\n- **Nombre:** CP_21 PAGINACION DE LISTADO BITACORA\n    \n- **Método:** `GET`\n    \n- **Endpoint:** `/worklog?page=1&per_page=15`\n    \n- **Parámetros:**\n    - `page` (query, integer): Número de página a consultar.\n        \n    - `per_page` (query, integer): Cantidad de registros por página.\n        \n- **Descripción:** Permite obtener el listado de bitácoras de forma paginada.\n    \n- **Caso de uso:** Navegar por grandes volúmenes de bitácoras de manera eficiente.\n    \n\n---\n\n### 5\\. **Listar Página Siguiente de Bitácora**\n\n- **Nombre:** CP_21 LISTAR PAGINA SIGUIENTE BITACORA\n    \n- **Método:** `GET`\n    \n- **Endpoint:** `/worklog?page=1&per_page=20`\n    \n- **Parámetros:**\n    - `page` (query, integer): Número de página a consultar.\n        \n    - `per_page` (query, integer): Cantidad de registros por página.\n        \n- **Descripción:** Similar al anterior, permite consultar la siguiente página de resultados.\n    \n- **Caso de uso:** Continuar la navegación por el listado de bitácoras.\n    \n\n---\n\n### 6\\. **Accesos con Rol No Autorizado**\n\n- **Nombre:** CP_22 ACCESOS CON ROL NO AUTORIZADO\n    \n- **Método:** `GET`\n    \n- **Endpoint:** `/worklog`\n    \n- **Parámetros:**\n    - Ninguno obligatorio.\n        \n- **Descripción:** Prueba el acceso al endpoint con un rol que no tiene permisos, para validar la seguridad.\n    \n- **Caso de uso:** Verificar que los roles no autorizados no puedan acceder a la información de bitácoras.\n    \n\n---\n\n## Ejemplo de uso de parámetros\n\n``` http\nGET /worklog?relevance=alta\nGET /worklog?date=2024-06-01\nGET /worklog?page=2&per_page=15\n\n ```\n\n## Notas\n\n- Todos los endpoints requieren autenticación previa.\n    \n- Los parámetros pueden combinarse para realizar búsquedas más específicas.\n    \n- El manejo de roles es fundamental para la seguridad de los datos."
 		},
 		{
-			"name": "CANDIDATOS",
+			"name": "TIPO DE GRUPOS",
 			"item": [
 				{
-					"name": "CP_12 LOGIN CORRECTO CANDIDATO",
+					"name": "LOGIN CORRECTO DIRECTOR COPY",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.variables.set(\"role\", \"candidato\");",
+									"pm.variables.set(\"login_role\", \"director\");",
 									""
 								],
 								"type": "text/javascript",
@@ -6677,17 +6687,17 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);",
-									"",
-									"const d = pm.response.json();",
-									"const token =",
-									"  d?.token ||",
-									"  d?.access_token ||",
-									"  d?.data?.token ||",
-									"  d?.user?.api_token;",
-									"",
-									"pm.expect(token, \"No vino token en el body\").to.be.a(\"string\");",
-									"pm.environment.set(\"token_candidato\", token);",
+									"pm.test(\"Login OK (200)\", () => pm.response.code === 200);\r",
+									"\r",
+									"const d = pm.response.json();\r",
+									"const token =\r",
+									"  d?.token ||\r",
+									"  d?.access_token ||\r",
+									"  d?.data?.token ||\r",
+									"  d?.user?.api_token;\r",
+									"\r",
+									"pm.expect(token, \"No vino token en el body\").to.be.a(\"string\");\r",
+									"pm.environment.set(\"token_director\", token);\r",
 									""
 								],
 								"type": "text/javascript",
@@ -6704,7 +6714,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"{{user_candidato}}\",\r\n  \"password\": \"{{pass_candidato}}\"\r\n}",
+							"raw": "{\r\n  \"email\": \"{{user_director}}\",\r\n  \"password\": \"{{pass_director}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6725,2484 +6735,72 @@
 					"response": []
 				},
 				{
-					"name": "CP_12 REGISTRAR INFORMACION PERSONAL EMPLEADO",
+					"name": "CP_64 LISTAR TIPOS DE GRUPOS REGISTRADOS",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Parse response",
-									"let res;",
-									"try {",
-									"    res = pm.response.json();",
-									"} catch (e) {",
-									"    res = {};",
-									"}",
-									"",
-									"// a) Validar status code 201",
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
+									"// Test 1: Validate response status code is 200 OK",
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"// b) Validar que la respuesta tenga la propiedad 'person'",
-									"pm.test(\"Response has 'person' property\", function () {",
-									"    pm.expect(res).to.have.property('person');",
+									"// Test 2: Validate response body is a valid JSON array",
+									"pm.test(\"Response body is a valid JSON array\", function () {",
+									"    pm.response.to.be.json;",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.be.an('array');",
 									"});",
 									"",
-									"// c) Validar que el id de la persona exista y sea un número",
-									"pm.test(\"Person id exists and is a number\", function () {",
-									"    pm.expect(res.person).to.have.property('id');",
-									"    pm.expect(res.person.id).to.be.a('number');",
+									"",
+									"// Test 4: Verify response headers",
+									"pm.test(\"Response has required headers\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
 									"});",
 									"",
-									"// Guardar el id en variable de entorno si existe",
-									"if (res.person && res.person.id) {",
-									"    pm.environment.set('person_id', res.person.id);",
-									"}",
-									"",
-									"// d) Validar que nombre, apellido y otros campos principales coincidan con los enviados en el body",
-									"const sentBody = {",
-									"    \"first_name\": \"Monica\",",
-									"    \"middle_name\": \"Courtney\",",
-									"    \"last_name\": \"Miranda Garcia\",",
-									"    \"civil_status\": \"Soltero\",",
-									"    \"gender\": \"Femenino\",",
-									"    \"birth_date\": \"1989-04-23\",",
-									"    \"professional_title\": \"Empleado\",",
-									"    \"other_title\": false,",
-									"    \"address\": \"Colonia Simulada\",",
-									"    \"distrito_id\": 123,",
-									"    \"nationality\": \"El Salvador\",",
-									"    \"is_nationalized\": false,",
-									"    \"dui_number\": \"51106587-2\",",
-									"    \"dui_expiration_date\": \"2031-11-25\",",
-									"    \"nup\": \"123456789632\",",
-									"    \"isss_number\": \"1478996520\",",
-									"    \"alternate_email\": \"courtney@ues.edu.sv\",",
-									"    \"bank_id\": 1,",
-									"    \"bank_account_type\": \"Cuenta de Ahorro\",",
-									"    \"bank_account_number\": \"3345627645\",",
-									"    \"telephone\": \"7456-8990\",",
-									"    \"is_employee\": false",
-									"};",
-									"",
-									"pm.test(\"Main fields match sent body\", function () {",
-									"    pm.expect(res.person.first_name).to.eql(sentBody.first_name);",
-									"    pm.expect(res.person.middle_name).to.eql(sentBody.middle_name);",
-									"    pm.expect(res.person.last_name).to.eql(sentBody.last_name);",
-									"    pm.expect(res.person.civil_status).to.eql(sentBody.civil_status);",
-									"    pm.expect(res.person.gender).to.eql(sentBody.gender);",
-									"    pm.expect(res.person.birth_date).to.eql(sentBody.birth_date);",
-									"    pm.expect(res.person.professional_title).to.eql(sentBody.professional_title);",
-									"    pm.expect(res.person.other_title).to.eql(sentBody.other_title);",
-									"    pm.expect(res.person.address).to.eql(sentBody.address);",
-									"    pm.expect(res.person.distrito_id).to.eql(sentBody.distrito_id);",
-									"    pm.expect(res.person.nationality).to.eql(sentBody.nationality);",
-									"    pm.expect(res.person.is_nationalized).to.eql(sentBody.is_nationalized);",
-									"    pm.expect(res.person.dui_number).to.eql(sentBody.dui_number);",
-									"    pm.expect(res.person.dui_expiration_date).to.eql(sentBody.dui_expiration_date);",
-									"    pm.expect(res.person.nup).to.eql(sentBody.nup);",
-									"    pm.expect(res.person.isss_number).to.eql(sentBody.isss_number);",
-									"    pm.expect(res.person.alternate_email).to.eql(sentBody.alternate_email);",
-									"    pm.expect(res.person.bank_id).to.eql(sentBody.bank_id);",
-									"    pm.expect(res.person.bank_account_type).to.eql(sentBody.bank_account_type);",
-									"    pm.expect(res.person.bank_account_number).to.eql(sentBody.bank_account_number);",
-									"    pm.expect(res.person.telephone).to.eql(sentBody.telephone);",
-									"    pm.expect(res.person.is_employee).to.eql(sentBody.is_employee);",
-									"});",
-									"",
-									"// e) Validar que las fechas existan y sean válidas",
-									"function isValidDate(dateString) {",
-									"    // YYYY-MM-DD",
-									"    return /^\\d{4}-\\d{2}-\\d{2}$/.test(dateString) && !isNaN(Date.parse(dateString));",
-									"}",
-									"pm.test(\"birth_date and dui_expiration_date exist and are valid dates\", function () {",
-									"    pm.expect(res.person.birth_date).to.exist;",
-									"    pm.expect(isValidDate(res.person.birth_date)).to.be.true;",
-									"    pm.expect(res.person.dui_expiration_date).to.exist;",
-									"    pm.expect(isValidDate(res.person.dui_expiration_date)).to.be.true;",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"first_name\": \"Monica\",\r\n  \"middle_name\": \"Courtney\",\r\n  \"last_name\": \"Miranda Garcia\",\r\n  \"civil_status\": \"Soltero\",\r\n  \"gender\": \"F\",\r\n  \"birth_date\": \"1989-04-23\",\r\n  \"professional_title\": \"Empleado\",\r\n  \"other_title\": false,\r\n  \"address\": \"Colonia Simulada\",\r\n  \"distrito_id\": 123,                 \r\n  \"nationality\": \"El Salvador\",\r\n  \"is_nationalized\": false,\r\n  \"dui_number\": \"51106587-2\",\r\n  \"dui_expiration_date\": \"2031-11-25\",\r\n  \"nup\": \"123456789632\",              // AFP/NUP\r\n  \"isss_number\": \"1478996520\",\r\n  \"alternate_mail\": \"courtney@ues.edu.sv\",\r\n  \"bank_id\": 1,                       // id del banco 'Banco Agrícola' en tu tabla banks\r\n  \"bank_account_type\": \"Cuenta de Ahorro\",\r\n  \"bank_account_number\": \"3345627645\",\r\n  \"telephone\": \"7456-8990\",\r\n  \"is_employee\": false\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_13 ACTUALIZAR INFORMACION PERSONAL EMPLEADO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/me",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"me"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_12 VALIDAR REGISTRO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/users/me/has-registered",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users",
-								"me",
-								"has-registered"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_12 VALIDAR DOCUMENTOS",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Captura el id de la persona creada si existe y guárdalo en la variable de entorno 'person_id' como string",
-									"let res = {};",
-									"try {",
-									"    res = pm.response.json();",
-									"} catch (e) {",
-									"    res = {};",
-									"}",
-									"",
-									"if (res.personal && res.personal.id) {",
-									"    pm.environment.set('person_id', res.personal.id.toString());",
-									"}",
-									"",
-									"pm.test('El id de la persona fue capturado correctamente', function () {",
-									"    if (res.personal && res.personal.id) {",
-									"        pm.expect(pm.environment.get('person_id')).to.eql(res.personal.id.toString());",
-									"    } else {",
-									"        pm.expect(pm.environment.get('person_id')).to.be.undefined;",
-									"    }",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/persons/me/validations",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"me",
-								"validations"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_15 CARGAR ARCHIVO CV",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "type",
-									"value": "cv",
-									"type": "text"
-								},
-								{
-									"key": "cv",
-									"type": "file",
-									"src": "/C:/Users/rasa0/Desktop/EVIDENCIAS/CV_MUJER.pdf"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/files",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"files"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_15 CARGAR ARCHIVO DECLARACION",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "type",
-									"value": "statement",
-									"type": "text"
-								},
-								{
-									"key": "statement",
-									"type": "file",
-									"src": "/C:/Users/rasa0/Desktop/EVIDENCIAS/TITLULO.pdf"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/files",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"files"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_15 CARGAR ARCHIVO BANCO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "type",
-									"value": "banco",
-									"type": "text"
-								},
-								{
-									"key": "banco",
-									"type": "file",
-									"src": "/C:/Users/rasa0/Desktop/EVIDENCIAS/AHORRO.pdf"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/files",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"files"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_15 CARGAR ARCHIVO TITULO",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "type",
-									"value": "titulo",
-									"type": "text"
-								},
-								{
-									"key": "titulo",
-									"type": "file",
-									"src": "/C:/Users/rasa0/Desktop/EVIDENCIAS/TITLULO.pdf"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/files",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"files"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_90 VALIDAR DUI RRHH",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_rrhh}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"validations\": {\r\n    \"dui_readable\": true,\r\n    \"dui_name\": true,\r\n    \"dui_number\": true,\r\n    \"dui_profession\": true,\r\n    \"dui_civil_status\": true,\r\n    \"dui_birth_date\": true,\r\n    \"dui_unexpired\": true,\r\n    \"dui_address\": true\r\n  }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/{{person_id}}/validations/DUI/store",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"{{person_id}}",
-								"validations",
-								"DUI",
-								"store"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_15 VALIDAR CV RRHH",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_rrhh}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"validations\": {\r\n    \"curriculum_readable\": true\r\n  }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/{{person_id}}/validations/CV/store",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"{{person_id}}",
-								"validations",
-								"CV",
-								"store"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_90 VALIDAR BANCO RRHH",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_rrhh}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"validations\": {\r\n    \"bank_readable\": true,\r\n    \"bank_number\": true\r\n  }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/{{person_id}}/validations/BANCO/store",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"{{person_id}}",
-								"validations",
-								"BANCO",
-								"store"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_90 VALIDAR TITULO RRHH",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_rrhh}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"validations\": {\r\n    \"title_readable\": true,\r\n    \"title_mined\": true\r\n  }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/{{person_id}}/validations/TITULO-N/store",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"{{person_id}}",
-								"validations",
-								"TITULO-N",
-								"store"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_90 VALIDAR DJ RRHH",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_rrhh}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"validations\": {\r\n    \"statement_readable\": true\r\n  }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons/{{person_id}}/validations/DJ/store",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"{{person_id}}",
-								"validations",
-								"DJ",
-								"store"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "**Objetivo general:**\nEsta carpeta agrupa los endpoints y pruebas relacionadas con la gestión de candidatos en el sistema de contratos. Permite simular y validar el proceso completo de registro, carga de documentos y validaciones requeridas para un candidato.\n\n**Pruebas cubiertas:**\n- Registro de información personal del candidato.\n- Inicio de sesión (login) como candidato.\n- Carga de archivos/documentos requeridos (CV, declaración jurada, título, banco, etc.).\n- Validación de documentos por parte de RRHH.\n- Actualización de información personal.\n- Verificación del estado de registro y validaciones.\n\n**Consideraciones sobre variables y datos de prueba:**\n- Utiliza variables de entorno como `base_url`, `person_id`, `user_candidato`, `pass_candidato`, entre otras, para parametrizar los datos y facilitar la reutilización de los requests.\n- Se recomienda definir valores de prueba en el entorno activo (por ejemplo, usuarios de prueba, IDs de personas, tokens, etc.).\n- Los archivos a cargar deben estar disponibles en la ruta configurada o como datos binarios en el request.\n\n**Sugerencia de flujo de pruebas:**\n1. Realizar el registro del candidato.\n2. Iniciar sesión para obtener el token de autenticación.\n3. Actualizar información personal si es necesario.\n4. Cargar los documentos requeridos (CV, declaración jurada, título, banco).\n5. Ejecutar las validaciones correspondientes para cada documento.\n6. Verificar el estado de validaciones y registro.\n\nEsta estructura permite validar el ciclo de vida completo de un candidato desde su registro hasta la validación final de documentos, facilitando la detección de errores y la automatización de pruebas end-to-end."
-		},
-		{
-			"name": "EMPLEADO",
-			"item": [
-				{
-					"name": "CONTRATOS",
-					"item": [
-						{
-							"name": "TIPO DE GRUPOS",
-							"item": [
-								{
-									"name": "CP_64 LISTAR TIPOS DE GRUPOS REGISTRADOS",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// Test 1: Validate response status code is 200 OK",
-													"pm.test(\"Status code is 200 OK\", function () {",
-													"    pm.response.to.have.status(200);",
-													"});",
-													"",
-													"// Test 2: Validate response body is a valid JSON array",
-													"pm.test(\"Response body is a valid JSON array\", function () {",
-													"    pm.response.to.be.json;",
-													"    var jsonData = pm.response.json();",
-													"    pm.expect(jsonData).to.be.an('array');",
-													"});",
-													"",
-													"",
-													"// Test 4: Verify response headers",
-													"pm.test(\"Response has required headers\", function () {",
-													"    pm.response.to.have.header(\"Content-Type\");",
-													"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
-													"});",
-													"",
-													"pm.test(\"Response headers are valid\", function () {",
-													"    // Check for common security and response headers",
-													"    pm.response.to.have.header(\"Content-Type\");",
-													"    ",
-													"    // Optional: Check for other common headers if they exist",
-													"    var headers = pm.response.headers;",
-													"    if (headers.has(\"Content-Length\")) {",
-													"        pm.expect(parseInt(headers.get(\"Content-Length\"))).to.be.above(0);",
-													"    }",
-													"});",
-													"",
-													"// Test 5: Check response time is within acceptable range",
-													"pm.test(\"Response time is within acceptable range (< 2000ms)\", function () {",
-													"    pm.expect(pm.response.responseTime).to.be.below(2000);",
-													"});",
-													"",
-													"pm.test(\"Response time is reasonable (< 5000ms)\", function () {",
-													"    pm.expect(pm.response.responseTime).to.be.below(5000);",
-													"});",
-													"",
-													"// Additional validation: Check for data consistency",
-													"pm.test(\"Group type IDs are unique\", function () {",
-													"    var jsonData = pm.response.json();",
-													"    ",
-													"    if (jsonData.length > 0) {",
-													"        var ids = jsonData.map(function(groupType) {",
-													"            return groupType.id;",
-													"        });",
-													"        ",
-													"        var uniqueIds = [...new Set(ids)];",
-													"        pm.expect(uniqueIds.length).to.equal(ids.length, \"All group type IDs should be unique\");",
-													"    }",
-													"});",
-													"",
-													"// Store data for use in other requests if needed",
-													"var responseData = pm.response.json();",
-													"if (responseData.length > 0) {",
-													"    pm.collectionVariables.set(\"groupTypeId\", responseData[0].id);",
-													"    pm.collectionVariables.set(\"groupTypeName\", responseData[0].name);",
-													"    console.log(\"Stored first group type - ID: \" + responseData[0].id + \", Name: \" + responseData[0].name);",
-													"}"
-												],
-												"type": "text/javascript",
-												"packages": {},
-												"requests": {}
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Auto-refresh token if expired or missing",
-													"const tokenAdmin = pm.environment.get(\"token_admin\");",
-													"const tokenExpiry = pm.environment.get(\"token_admin_exp\");",
-													"const currentTime = Date.now();",
-													"",
-													"// Check if token is missing or expired",
-													"const isTokenExpired = !tokenExpiry || currentTime >= parseInt(tokenExpiry);",
-													"const isTokenMissing = !tokenAdmin;",
-													"",
-													"if (isTokenMissing || isTokenExpired) {",
-													"    console.log(\"Token is missing or expired. Fetching new token...\");",
-													"    ",
-													"    // Get login credentials from environment",
-													"    const baseUrl = pm.environment.get(\"base_url\");",
-													"    const email = pm.environment.get(\"email\");",
-													"    const password = pm.environment.get(\"password\");",
-													"    ",
-													"    if (!email || !password) {",
-													"        console.error(\"Login credentials (email/password) not found in environment variables\");",
-													"        return;",
-													"    }",
-													"    ",
-													"    // Make login request to get fresh token",
-													"    try {",
-													"        const loginResponse = await pm.sendRequest({",
-													"            url: `${baseUrl}/auth/login`,",
-													"            method: \"POST\",",
-													"            header: {",
-													"                \"Content-Type\": \"application/json\",",
-													"                \"Accept\": \"application/json\"",
-													"            },",
-													"            body: {",
-													"                mode: \"raw\",",
-													"                raw: JSON.stringify({",
-													"                    email: email,",
-													"                    password: password",
-													"                })",
-													"            }",
-													"        });",
-													"        ",
-													"        if (loginResponse.code === 200) {",
-													"            const responseData = loginResponse.json();",
-													"            ",
-													"            // Extract token from response (adjust path based on your API response structure)",
-													"            const newToken = responseData.token || responseData.access_token || responseData.data?.token;",
-													"            ",
-													"            if (newToken) {",
-													"                // Store the new token",
-													"                pm.environment.set(\"token_admin\", newToken);",
-													"                ",
-													"                // Set expiry time (default 1 hour if not provided by API)",
-													"                const expiresIn = responseData.expires_in || 3600; // seconds",
-													"                const expiryTime = Date.now() + (expiresIn * 1000);",
-													"                pm.environment.set(\"token_admin_exp\", expiryTime.toString());",
-													"                ",
-													"                console.log(\"Token refreshed successfully\");",
-													"            } else {",
-													"                console.error(\"Token not found in login response\");",
-													"            }",
-													"        } else {",
-													"            console.error(\"Login failed with status code:\", loginResponse.code);",
-													"        }",
-													"    } catch (error) {",
-													"        console.error(\"Error during token refresh:\", error);",
-													"    }",
-													"} else {",
-													"    console.log(\"Token is still valid\");",
-													"}"
-												],
-												"type": "text/javascript",
-												"packages": {},
-												"requests": {}
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token_director}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											},
-											{
-												"key": "Authorization",
-												"value": "Bearer {{token_admin}}"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json"
-											}
-										],
-										"url": {
-											"raw": "{{base_url}}/groupTypes",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"groupTypes"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "CP_69 REGISTRAR GRUPO EN CARGA ACADEMICA",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// ======================================================\r",
-													"// GENERAR CÓDIGO ÚNICO PARA GRUPO\r",
-													"// ======================================================\r",
-													"pm.variables.set(\"codigo_grupo\", \"G\" + pm.variables.get(\"randomCode\"));\r",
-													"console.log(\"Código generado para grupo:\", pm.variables.get(\"codigo_grupo\"));\r",
-													"\r",
-													"// Si no existe la variable, inicialízala\r",
-													"if (!pm.environment.get(\"course_id_incremental\")) {\r",
-													"    pm.environment.set(\"course_id_incremental\", 1); // o el valor inicial que desees\r",
-													"}\r",
-													"\r",
-													"// Obtén el valor actual\r",
-													"let currentCourseId = parseInt(pm.environment.get(\"course_id_incremental\"), 10);\r",
-													"\r",
-													"// Asigna el valor a una variable de entorno temporal para usar en el body\r",
-													"pm.environment.set(\"current_course_id\", currentCourseId);\r",
-													"\r",
-													"// Incrementa para la siguiente iteración\r",
-													"pm.environment.set(\"course_id_incremental\", currentCourseId + 1);"
-												],
-												"type": "text/javascript",
-												"packages": {},
-												"requests": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"// Test: Código de estado esperado (201 para éxito, 400 para error de grupo duplicado)",
-													"pm.test(\"Status code is 201 (creado) o 400 (grupo duplicado)\", function () {",
-													"    pm.expect([201, 400, 200]).to.include(pm.response.code);",
-													"});",
-													"",
-													"",
-													"// Test: Respuesta de error por grupo duplicado",
-													"if (pm.response.code === 400) {",
-													"    pm.test(\"Mensaje de error por grupo duplicado\", function () {",
-													"        pm.expect(pm.response.text()).to.include(\"ya existe un grupo registrado con ese numero de grupo registrado en el sistema\");",
-													"    });",
-													"}"
-												],
-												"type": "text/javascript",
-												"packages": {},
-												"requests": {}
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token_director}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Authorization",
-												"value": "Bearer {{token_director}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"number\": 15,\r\n  \"group_type_id\": 1,\r\n  \"course_id\": {{current_course_id}},\r\n  \"details\": [\r\n    {\r\n      \"day\": \"Lunes\",\r\n      \"start_hour\": \"08:00\",\r\n      \"finish_hour\": \"10:00\",\r\n      \"classroom\": \"Aula 101\"\r\n    }\r\n  ],\r\n  \"modality\": \"Presencial\"\r\n}\r\n",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{base_url}}/academicLoad/1/groups",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"academicLoad",
-												"1",
-												"groups"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "CP_70 – ASIGNAR PROFESOR A GRUPO",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// ======================================================\r",
-													"// REEMPLAZAR ID DE GRUPO Y PROFESOR\r",
-													"// ======================================================\r",
-													"let groupId = pm.environment.get(\"group_id\") || 1;\r",
-													"let profesorId = pm.environment.get(\"professor_id\") || 25; // Cambiar si tu backend usa otro ID\r",
-													"\r",
-													"pm.variables.set(\"createdGroupId\", groupId);\r",
-													"pm.variables.set(\"profesorId\", profesorId);\r",
-													"\r",
-													"console.log(\"👨‍🏫 Asignando profesor ID:\", profesorId, \"al grupo ID:\", groupId);\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {},
-												"requests": {}
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"console.log(\"👨‍🏫 Ejecutando CP_70 – Asignar profesor a grupo\");\r",
-													"\r",
-													"pm.test(\"Código 200 OK o 422\", () => {\r",
-													"    pm.expect(pm.response.code).to.be.oneOf([200, 422]);\r",
-													"});\r",
-													"\r",
-													"if (pm.response.code === 200) {\r",
-													"    console.log(\"✅ Profesor asignado correctamente.\");\r",
-													"} else {\r",
-													"    const res = pm.response.json();\r",
-													"    console.warn(\"⚠️ No se pudo asignar profesor:\", res.message);\r",
-													"}\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {},
-												"requests": {}
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{token_director}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{token_admin}}",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"people_id\": 25\r\n}\r\n",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{base_url}}/groups/{{createdGroupId}}/professor",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"groups",
-												"{{createdGroupId}}",
-												"professor"
-											]
-										}
-									},
-									"response": []
-								}
-							],
-							"description": "Esta carpeta contiene solicitudes para la gestión de tipos de grupos en el sistema académico. Incluye los siguientes endpoints: listar los tipos de grupos registrados, registrar un grupo en una carga académica y asignar un profesor a un grupo específico. Utiliza estos endpoints para administrar la estructura y asignaciones de grupos dentro del sistema."
-						},
-						{
-							"name": "GET FACULTADES",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Rol activo (puede venir del Environment)\r",
-											"const role = pm.variables.get('role') || 'Director';\r",
-											"\r",
-											"// Token previamente guardado en la colección (p.ej. token_Director)\r",
-											"const tk = pm.collectionVariables.get(`token_${role}`) || '';\r",
-											"\r",
-											"// Evita duplicados del header Authorization\r",
-											"pm.request.headers.remove('Authorization');\r",
-											"pm.request.headers.add({ key: 'Authorization', value: `Bearer ${tk}` });\r",
-											"\r",
-											"// (Opcional) fuerza JSON\r",
-											"pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"// 1) Status OK\r",
-											"pm.test('200 OK', () => pm.response.to.have.status(200));\r",
-											"\r",
-											"// 2) Respuesta: debe ser array no vacío\r",
-											"let data;\r",
-											"try {\r",
-											"  data = pm.response.json();\r",
-											"} catch (e) {\r",
-											"  pm.test('JSON válido', () => { throw new Error('Respuesta no es JSON'); });\r",
-											"}\r",
-											"pm.test('Es array y no está vacío', () => {\r",
-											"  pm.expect(data).to.be.an('array').that.is.not.empty;\r",
-											"});\r",
-											"\r",
-											"// 3) Opción: elegir por nombre con filtro (ponlo en Variables de Colección si quieres)\r",
-											"const filter = (pm.collectionVariables.get('facultyNameFilter') || '').toLowerCase().trim();\r",
-											"\r",
-											"// Normalizador de strings\r",
-											"const norm = s => (s || '').toString().toLowerCase();\r",
-											"\r",
-											"// Detecta campos típicos de tu API (según tu screenshot: facultyId, nameFaculty)\r",
-											"const pickId = obj => obj.facultyId ?? obj.id ?? obj.FacultyId ?? obj.FACULTY_ID;\r",
-											"const pickName = obj => obj.nameFaculty ?? obj.name ?? obj.Name ?? obj.facultyName;\r",
-											"\r",
-											"let chosen = data[0];\r",
-											"if (filter) {\r",
-											"  const found = data.find(x => norm(pickName(x)).includes(filter));\r",
-											"  if (found) chosen = found;\r",
-											"}\r",
-											"\r",
-											"// 4) Validaciones del elegido\r",
-											"const facultyId = pickId(chosen);\r",
-											"const facultyName = pickName(chosen);\r",
-											"\r",
-											"pm.test('Encontré facultyId', () => pm.expect(facultyId, 'No encontré campo ID (facultyId/id)').to.exist);\r",
-											"pm.test('Encontré facultyName', () => pm.expect(facultyName, 'No encontré campo de nombre').to.exist);\r",
-											"\r",
-											"// 5) Guardar variables de coleccion (para encadenar)\r",
-											"pm.collectionVariables.set('facultyId', facultyId);\r",
-											"pm.collectionVariables.set('facultyName', facultyName);\r",
-											"\r",
-											"// 6) Logs útiles para depurar si algo cambia\r",
-											"console.log('Facultad elegida:', chosen);\r",
-											"console.log('facultyId guardado:', facultyId);\r",
-											"console.log('facultyName guardado:', facultyName);\r",
-											"\r",
-											"// 7) Afirmación final (visible en Test Results)\r",
-											"pm.test('facultyId guardado', () => pm.expect(pm.collectionVariables.get('facultyId')).to.exist);\r",
-											"pm.test('facultyName guardado', () => pm.expect(pm.collectionVariables.get('facultyName')).to.exist);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/faculties",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"faculties"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET TIPO DE CONTRATOS",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const role = pm.variables.get('role') || 'Director';\r",
-											"const tk = pm.collectionVariables.get(`token_${role}`) || '';\r",
-											"\r",
-											"pm.request.headers.remove('Authorization');\r",
-											"pm.request.headers.add({ key: 'Authorization', value: `Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"// 1) Status OK\r",
-											"pm.test('200 OK', () => pm.response.to.have.status(200));\r",
-											"\r",
-											"// 2) JSON array no vacío\r",
-											"let data;\r",
-											"try { data = pm.response.json(); }\r",
-											"catch { pm.test('JSON válido', () => { throw new Error('Respuesta no es JSON'); }); }\r",
-											"\r",
-											"pm.test('Es array y no está vacío', () => {\r",
-											"  pm.expect(data).to.be.an('array').that.is.not.empty;\r",
-											"});\r",
-											"\r",
-											"// 3) Filtro opcional por nombre (colección -> contractTypeNameFilter)\r",
-											"const filter = (pm.collectionVariables.get('contractTypeNameFilter') || '').toLowerCase().trim();\r",
-											"const norm = s => (s || '').toString().toLowerCase();\r",
-											"\r",
-											"// Detectores de llaves (ajustado a lo que suele devolver tu API)\r",
-											"const pickId   = o => o.contractTypeId ?? o.id ?? o.ContractTypeId ?? o.CONTRACT_TYPE_ID;\r",
-											"const pickName = o => o.nameContractType ?? o.na\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/contract-types",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contract-types"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GET ESCUELAS",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const role = pm.variables.get('role') || 'Director';\r",
-											"const tk = pm.collectionVariables.get(`token_${role}`) || '';\r",
-											"\r",
-											"pm.request.headers.remove('Authorization');\r",
-											"pm.request.headers.add({ key: 'Authorization', value: `Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key: 'Accept', value: 'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200 OK', () => pm.response.to.have.status(200));\r",
-											"\r",
-											"let data;\r",
-											"try { data = pm.response.json(); }\r",
-											"catch { throw new Error('Respuesta no es JSON'); }\r",
-											"\r",
-											"pm.test('Es array y no está vacío', () => {\r",
-											"  pm.expect(data).to.be.an('array').that.is.not.empty;\r",
-											"});\r",
-											"\r",
-											"// Si querés filtrar por nombre, setea schoolNameFilter en Variables de Colección\r",
-											"const norm = s => (s || '').toString().toLowerCase();\r",
-											"const filter = (pm.collectionVariables.get('schoolNameFilter') || '').toLowerCase().trim();\r",
-											"\r",
-											"const pickId   = o => o.schoolId ?? o.id ?? o.SchoolId ?? o.SCHOOL_ID;\r",
-											"const pickName = o => o.nameSchool ?? o.name ?? o.schoolName ?? o.Name;\r",
-											"\r",
-											"let chosen = data[0];\r",
-											"if (filter) {\r",
-											"  const found = data.find(x => norm(pickName(x)).includes(filter));\r",
-											"  if (found) chosen = found;\r",
-											"}\r",
-											"\r",
-											"const schoolId   = pickId(chosen);\r",
-											"const schoolName = pickName(chosen);\r",
-											"\r",
-											"pm.test('Encontré schoolId',   () => pm.expect(schoolId).to.exist);\r",
-											"pm.test('Encontré schoolName', () => pm.expect(schoolName).to.exist);\r",
-											"\r",
-											"// Guardar para el siguiente paso\r",
-											"pm.collectionVariables.set('schoolId', String(schoolId));\r",
-											"pm.collectionVariables.set('schoolName', schoolName);\r",
-											"\r",
-											"pm.test('schoolId guardado',   () => pm.expect(pm.collectionVariables.get('schoolId')).to.exist);\r",
-											"pm.test('schoolName guardado', () => pm.expect(pm.collectionVariables.get('schoolName')).to.exist);\r",
-											"\r",
-											"console.log('Escuela elegida:', chosen);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/faculties/{{facultyId}}/schools",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"faculties",
-										"{{facultyId}}",
-										"schools"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_30 SOLICITUD_CONTRATACION",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const tk = pm.collectionVariables.get('token_Director') \r",
-											"        || pm.collectionVariables.get('token_Director'.toString()) \r",
-											"        || '';\r",
-											"\r",
-											"pm.request.headers.upsert({ key:'Authorization', value:`Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key:'Accept', value:'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('201/200 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"\r",
-											"let j;\r",
-											"try { j = pm.response.json(); } catch { throw new Error('Respuesta no es JSON'); }\r",
-											"\r",
-											"// La respuesta real trae el objeto dentro de \"hiringRequest\"\r",
-											"const root = j.hiringRequest || j.data || j;\r",
-											"\r",
-											"// Extrae y guarda\r",
-											"const hid   = root?.id;\r",
-											"const hcode = root?.code;\r",
-											"const hstat = root?.request_status;\r",
-											"const last  = root?.last_status?.code;\r",
-											"\r",
-											"pm.collectionVariables.set('hiringRequestId', String(hid || ''));\r",
-											"pm.collectionVariables.set('hiringRequestCode', hcode || '');\r",
-											"pm.collectionVariables.set('hiringRequestStatus', hstat || '');\r",
-											"if (last) pm.collectionVariables.set('hiringRequestLastStatus', last);\r",
-											"\r",
-											"// Verificaciones\r",
-											"pm.test('hiringRequestId guardado', () => {\r",
-											"  pm.expect(pm.collectionVariables.get('hiringRequestId')).to.have.length.greaterThan(0);\r",
-											"});\r",
-											"\r",
-											"// (Opcional) inspección de estados\r",
-											"console.log('HR ID:', hid, 'CODE:', hcode, 'STATUS:', hstat, 'LAST_STATUS:', last);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"contract_type_id\": 3,\r\n  \"school_id\": 8,\r\n  \"modality\": \"Modalidad Presencial\",\r\n  \"message\": \"Solicitud creada desde Postman (cabecera)\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequest",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_31 DIRECTO_AGREGA_DOCENTE",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const hr = pm.collectionVariables.get('hiringRequestId');\r",
-											"if (!hr) throw new Error('Falta hiringRequestId (crea la cabecera SPNP primero).');\r",
-											"\r",
-											"const tk = pm.collectionVariables.get('token_Director') || '';\r",
-											"pm.request.headers.upsert({ key:'Authorization', value:`Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key:'Accept', value:'application/json' });\r",
-											"pm.request.headers.upsert({ key:'Content-Type', value:'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"\r",
-											"let j;\r",
-											"try { j = pm.response.json(); } catch { throw new Error('Respuesta no es JSON'); }\r",
-											"\r",
-											"const root = j.requestDetail || j.detail || j.data || j;\r",
-											"const rdId = root?.id || j.requestDetailId || j.id || j.data?.id;\r",
-											"\r",
-											"pm.collectionVariables.set('requestDetailId', String(rdId || ''));\r",
-											"\r",
-											"pm.test('requestDetailId guardado', () =>\r",
-											"  pm.expect(pm.collectionVariables.get('requestDetailId')).to.have.length.greaterThan(0)\r",
-											");\r",
-											"\r",
-											"console.log('Detalle SPNP → requestDetailId:', pm.collectionVariables.get('requestDetailId'));\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"start_date\": \"2025-03-01\",\r\n  \"finish_date\": \"2025-06-30\",\r\n  \"person_id\": 118,\r\n  \"groups\": [\r\n    { \"group_id\": 225, \"hourly_rate\": 25, \"weekly_hours\": 8 }\r\n  ],\r\n  \"position_activities\": [\r\n    {\r\n      \"position_id\": 4,\r\n      \"activities\": [\r\n        \"Impartir clases teoricas de la asignatura\",\r\n        \"Preparar material de apoyo de asignatura\",\r\n        \"Elaborar evaluaciones de asignatura\",\r\n        \"Administrar evaluaciones de asignatura\",\r\n        \"Calificar evaluaciones de asignatura\",\r\n        \"Atender consultas de asignatura\"\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}/details/SPNP",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}",
-										"details",
-										"SPNP"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_33 DIRECTOR_ENVIA_RRHH",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const tk = pm.collectionVariables.get('token_Director') || '';\r",
-											"const hr = pm.collectionVariables.get('hiringRequestId');\r",
-											"if (!hr) throw new Error('Falta hiringRequestId');\r",
-											"\r",
-											"pm.request.headers.upsert({ key:'Authorization', value:`Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key:'Accept', value:'application/json' });\r",
-											"pm.request.headers.upsert({ key:'Content-Type', value:'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"\r",
-											"const r = pm.response.json();\r",
-											"const root = r.hiringRequest || r.data || r;\r",
-											"\r",
-											"// status actual y último status conocido\r",
-											"const prev = pm.collectionVariables.get('hiringRequestStatus') || 'RDC';\r",
-											"const now  = root?.request_status || root?.status || root?.last_status?.code || '';\r",
-											"\r",
-											"if (now) pm.collectionVariables.set('hiringRequestStatus', now);\r",
-											"\r",
-											"// Aceptamos que cambie de RDC a otro código (el nombre exacto depende de tu catálogo)\r",
-											"pm.test('Estado cambió desde RDC', () => {\r",
-											"  pm.expect(now).to.be.a('string');\r",
-											"  pm.expect(now).to.not.eql('RDC'); // si tu flujo pasa primero por Secretaría y no cambia, este test fallará\r",
-											"});\r",
-											"\r",
-											"console.log('Estado anterior:', prev, '→ nuevo:', now);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}/sendToHR",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}",
-										"sendToHR"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_34 RRHH_APRUEBA_SOLICITUD",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const tk = pm.collectionVariables.get('token_RRHH') || '';\r",
-											"const hr = pm.collectionVariables.get('hiringRequestId');\r",
-											"if (!hr) throw new Error('Falta hiringRequestId');\r",
-											"\r",
-											"pm.request.headers.upsert({ key:'Authorization', value:`Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key:'Accept', value:'application/json' });\r",
-											"pm.request.headers.upsert({ key:'Content-Type', value:'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"const r = pm.response.json();\r",
-											"const root = r.hiringRequest || r.data || r;\r",
-											"const now  = root?.request_status || root?.status || root?.last_status?.code || '';\r",
-											"\r",
-											"if (now) pm.collectionVariables.set('hiringRequestStatus', now);\r",
-											"pm.test('Estado actualizado por RRHH', () => pm.expect(now).to.be.a('string'));\r",
-											"\r",
-											"console.log('Status tras validar RRHH:', now);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_rrhh}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"validated\": true,\r\n  \"comments\": \"RRHH validó documentación y datos del candidato (DUI, NIT, títulos, CV).\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}/validateHR",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}",
-										"validateHR"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_35 DIRECTOR_ENVIA_SEC",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const tk = pm.collectionVariables.get('token_Director') || '';\r",
-											"if (!tk) throw new Error('Falta token_Director');\r",
-											"pm.request.headers.upsert({ key:'Authorization', value:`Bearer ${tk}` });\r",
-											"pm.request.headers.upsert({ key:'Accept', value:'application/json' });\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"\r",
-											"// Verifica el estado actual de la solicitud después del store\r",
-											"pm.sendRequest({\r",
-											"  url: pm.variables.replaceIn('[[base_url]]/api/hiringRequest/[[hiringRequestId]]'),\r",
-											"  method: 'GET',\r",
-											"  header: { Authorization: `Bearer ${pm.collectionVariables.get('token_Director')}` }\r",
-											"}, (err, res) => {\r",
-											"  pm.test('Consulta de solicitud OK', () => pm.expect(res).to.have.property('code', 200));\r",
-											"  const hr = res.json();\r",
-											"  const status = hr.request_status || hr.last_status?.code || '';\r",
-											"  if (status) pm.collectionVariables.set('hiringRequestStatus', status);\r",
-											"  console.log('Status tras enviar a Secretaría:', status);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_director}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"fileName\": \"SIF-FAKE.pdf\",\r\n  \"request_status\": \"ESD\",\r\n  \"message\": \"Simulación: PDF generado por QA para envío a Secretaría\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequestSPNP/{{hiringRequestId}}/create/PDF/store",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequestSPNP",
-										"{{hiringRequestId}}",
-										"create",
-										"PDF",
-										"store"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_40 VERIFICAR_ESTADO",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200 OK', ()=> pm.response.to.have.status(200));\r",
-											"const hr = pm.response.json();\r",
-											"const status = hr.request_status || hr.last_status?.code || '';\r",
-											"pm.collectionVariables.set('hiringRequestStatus', status);\r",
-											"console.log('Estado actual:', status);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_secretaria}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_40 SECRETARIA_VERIFICA_RECEPCION",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200 OK', ()=> pm.response.to.have.status(200));\r",
-											"const hr = pm.response.json();\r",
-											"const status = hr.request_status || hr.last_status?.code || '';\r",
-											"pm.collectionVariables.set('hiringRequestStatus', status);\r",
-											"console.log('Estado actual:', status);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_secretaria}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_40 SECRETARIA_MARCA_RECIBIDO",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', ()=> pm.expect([200,201]).to.include(pm.response.code));\r",
-											"const r = pm.response.json();\r",
-											"const root = r.hiringRequest || r.data || r;\r",
-											"const now  = root?.request_status || root?.last_status?.code || '';\r",
-											"pm.collectionVariables.set('hiringRequestStatus', now || '');\r",
-											"console.log('Estado tras recepción Secretaría:', now);\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_secretaria}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \"comments\": \"Secretaría recibe la solicitud para agendar en JD.\" }",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}/secretary/reception",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}",
-										"secretary",
-										"reception"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_41 SECRETARIA_ADJUNTA_ACTA",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"\r",
-											"let j; try { j = pm.response.json(); } catch { throw new Error('Respuesta no es JSON'); }\r",
-											"\r",
-											"// Normaliza posibles envoltorios\r",
-											"const root = j.hiringRequest || j.data || j;\r",
-											"const agreement = root?.agreement || j?.agreement || j;\r",
-											"\r",
-											"// Lee campos devueltos\r",
-											"const agreementId = agreement?.id ?? j?.agreementId ?? null;\r",
-											"const code = agreement?.code ?? agreement?.agreement_number ?? j?.code;\r",
-											"const agreedOn = agreement?.agreed_on ?? agreement?.agreement_date ?? j?.agreed_on;\r",
-											"const approved = agreement?.approved ?? j?.approved;\r",
-											"\r",
-											"// Guarda variables útiles\r",
-											"if (agreementId) pm.collectionVariables.set('agreementId', String(agreementId));\r",
-											"if (code) pm.collectionVariables.set('agreementCode', String(code));\r",
-											"\r",
-											"// Asserts\r",
-											"pm.test('Se guardó agreementId', () =>\r",
-											"  pm.expect(pm.collectionVariables.get('agreementId')||'').to.have.length.greaterThan(0)\r",
-											");\r",
-											"pm.test('Código de acta presente', () => pm.expect(code).to.be.a('string').and.not.empty);\r",
-											"pm.test('Fecha con formato YYYY-MM-DD', () => pm.expect(agreedOn).to.match(/^\\d{4}-\\d{2}-\\d{2}$/));\r",
-											"pm.test('approved es boolean/string válido', () =>\r",
-											"  pm.expect([true,false,'true','false','1','0']).to.include(approved)\r",
-											");\r",
-											"\r",
-											"// (Opcional) refresca estado de la solicitud\r",
-											"pm.sendRequest({\r",
-											"  url: pm.variables.replaceIn('[[base_url]]/api/hiringRequest/[[hiringRequestId]]'),\r",
-											"  method: 'GET',\r",
-											"  header: { Authorization: `Bearer ${pm.collectionVariables.get('token_Secretaria')}` }\r",
-											"}, (err, res) => {\r",
-											"  pm.test('Consulta solicitud OK', () => pm.expect(res).to.have.property('code', 200));\r",
-											"  const hr = res.json();\r",
-											"  const status = hr.request_status || hr.last_status?.code || '';\r",
-											"  if (status) pm.collectionVariables.set('hiringRequestStatus', status);\r",
-											"  console.log('Status tras acta:', status);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_secretaria}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "code",
-											"value": "AJ-2025-001",
-											"type": "text"
-										},
-										{
-											"key": "approved",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "agreed_on",
-											"value": "2025-06-15",
-											"type": "text"
-										},
-										{
-											"key": "comments",
-											"value": "Acta de Junta cargada por Secretaría.",
-											"type": "text"
-										},
-										{
-											"key": "file",
-											"type": "file",
-											"src": "/C:/Users/rasa0/Desktop/EVIDENCIAS/Doclaracion_Jurada.pdf"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}/agreement",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}",
-										"agreement"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_43 RRHH_GENERA_CONTRATO",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"// 200 / 201\r",
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"\r",
-											"// Content-Type esperado (DOCX)\r",
-											"const ct = pm.response.headers.get('Content-Type') || '';\r",
-											"pm.test('Content-Type DOCX', () => \r",
-											"  pm.expect(ct).to.include('application/vnd.openxmlformats-officedocument.wordprocessingml.document'));\r",
-											"\r",
-											"// Nombre sugerido (si lo envía)\r",
-											"const cd = pm.response.headers.get('Content-Disposition') || '';\r",
-											"const m = cd.match(/filename=\"?([^\"]+)\"?/);\r",
-											"if (m) pm.collectionVariables.set('contractFileName', m[1]);\r",
-											"pm.test('Tiene filename en Content-Disposition', () => pm.expect(m && m[1]).to.be.ok);\r",
-											"\r",
-											"// (Opcional) como el body es binario, consulta el estado del contrato\r",
-											"pm.sendRequest({\r",
-											"  url: pm.variables.replaceIn('[[base_url]]/api/contract/hiringRequestDetail/[[requestDetailId]]/status'),\r",
-											"  method: 'GET',\r",
-											"  header: { Authorization: `Bearer ${pm.collectionVariables.get('token_Secretaria') || pm.collectionVariables.get('token_RRHH')}` }\r",
-											"}, (err, res) => {\r",
-											"  pm.test('Consulta status contrato OK', () => pm.expect(res).to.have.property('code', 200));\r",
-											"  const s = res.json();\r",
-											"  const status = s.status || s.state || s.data?.status || '';\r",
-											"  pm.collectionVariables.set('contractStatus', status || '');\r",
-											"  console.log('Contrato status:', status);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_rrhh}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{ \"comments\": \"Contrato generado desde Secretaría/RRHH\" }\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/contract/hiringRequestDetail/{{requestDetailId}}/generate",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contract",
-										"hiringRequestDetail",
-										"{{requestDetailId}}",
-										"generate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_43 ACTUALIZAR_STATUS_CONTRATO",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Toma el siguiente estado de la cola\r",
-											"let flow = pm.collectionVariables.get('contractFlow');\r",
-											"flow = flow ? JSON.parse(flow) : [];\r",
-											"if (!flow.length) throw new Error('contractFlow vacío: define los IDs en orden');\r",
-											"\r",
-											"const nextStatusId = flow[0];\r",
-											"pm.variables.set('nextStatusId', nextStatusId); // disponible en el body\r",
-											"\r",
-											"// Usa hoy por defecto\r",
-											"const today = new Date();\r",
-											"const yyyy = today.getFullYear();\r",
-											"const mm = String(today.getMonth()+1).padStart(2,'0');\r",
-											"const dd = String(today.getDate()).padStart(2,'0');\r",
-											"pm.variables.set('today', `${yyyy}-${mm}-${dd}`);"
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200/201 OK', () => pm.expect([200,201]).to.include(pm.response.code));\r",
-											"const ct = pm.response.headers.get('Content-Type') || '';\r",
-											"if (/json/i.test(ct)) {\r",
-											"  const j = pm.response.json();\r",
-											"  const root = j.contract || j.data || j;\r",
-											"  const status = root?.status || root?.contract_status || j.status || '';\r",
-											"  if (status) pm.collectionVariables.set('contractStatus', String(status));\r",
-											"}\r",
-											"\r",
-											"// Confirmación con GET /status (usar {{...}})\r",
-											"pm.sendRequest({\r",
-											"  url: pm.variables.replaceIn('{{base_url}}/api/contract/hiringRequestDetail/{{requestDetailId}}/status'),\r",
-											"  method: 'GET',\r",
-											"  header: { Authorization: `Bearer ${pm.collectionVariables.get('token_RRHH') || pm.collectionVariables.get('token_Secretaria')}` }\r",
-											"}, (err, res) => {\r",
-											"  pm.test('GET /status OK', () => pm.expect(res).to.have.property('code', 200));\r",
-											"  const ct2 = res.headers.get('Content-Type') || '';\r",
-											"  if (/json/i.test(ct2)) {\r",
-											"    const s = res.json();\r",
-											"    const current = s.status || s.state || s.data?.status || '';\r",
-											"    pm.collectionVariables.set('contractStatus', current || '');\r",
-											"    console.log('Contrato → status:', current);\r",
-											"  } else {\r",
-											"    console.log('GET /status no devolvió JSON:', ct2);\r",
-											"  }\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_rrhh}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"contract_status_id\": {{nextStatusId}},\r\n  \"date\": \"{{today}}\",\r\n  \"comments\": \"Cambio automático de estado\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/contract/hiringRequestDetail/{{requestDetailId}}/status",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"contract",
-										"hiringRequestDetail",
-										"{{requestDetailId}}",
-										"status"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CP_43 FINALIZAR_PROCESO_CONTRATOS",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('200 OK', () => pm.expect(pm.response.code).to.eql(200));\r",
-											"\r",
-											"const ct = pm.response.headers.get('Content-Type') || '';\r",
-											"let j = {};\r",
-											"if (/json/i.test(ct)) {\r",
-											"  try { j = pm.response.json(); } catch { /* ignora si viene vacío */ }\r",
-											"}\r",
-											"\r",
-											"// Normalización y guardado de estado final\r",
-											"const root = j.data || j.hiringRequest || j || {};\r",
-											"const status = root.request_status || root.last_status?.code || '';\r",
-											"pm.collectionVariables.set('hiringRequestStatus', status || 'FIN');\r",
-											"\r",
-											"// Esperamos FIN al finalizar\r",
-											"pm.test('Solicitud finalizada (FIN)', () => pm.expect(status).to.match(/FIN|^$/));\r",
-											"\r",
-											"// Log útil\r",
-											"console.log('Finalize → status:', status, '| msg:', j.message || root.message || '(sin msg)');\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {},
-										"requests": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{token_rrhh}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"comments\": \"Finalización desde Postman\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/hiringRequest/{{hiringRequestId}}/finalize",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"hiringRequest",
-										"{{hiringRequestId}}",
-										"finalize"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"description": "## 📁 CONTRATOS\n\nEsta carpeta contiene los endpoints y pruebas relacionados con la gestión de solicitudes de contratación y generación de contratos en el sistema. Incluye el flujo completo desde la autenticación de los distintos roles, la creación de la solicitud, su validación y aprobación, hasta la generación y finalización del contrato.\n\n### Flujo principal cubierto\n\n1. **Autenticación de usuarios**  \n    Incluye login para los roles: Director, Secretaria, RRHH y Admin.\n    \n2. **Obtención de datos maestros**\n    \n    - Facultades\n        \n    - Tipos de contrato\n        \n    - Escuelas\n        \n3. **Solicitud de contratación**\n    \n    - Creación de la solicitud por parte del Director.\n        \n    - Agregado de docentes a la solicitud.\n        \n4. **Envío y validación de la solicitud**\n    \n    - Envío de la solicitud a Secretaría y RRHH.\n        \n    - Validación y aprobación por RRHH.\n        \n    - Adjuntar acta y marcar recepción por Secretaría.\n        \n5. **Generación y gestión del contrato**\n    \n    - Generación del contrato por RRHH.\n        \n    - Actualización del estado del contrato.\n        \n    - Finalización del proceso.\n        \n6. **Verificación de estados**\n    \n    - Consultas para verificar el estado de la solicitud y la recepción.\n        \n\n### Requests incluidos\n\n- **LOGIN CORRECTO DIRECTOR / SECRETARIA / RRHH / ADMIN**  \n    Pruebas de autenticación para cada rol involucrado en el proceso.\n    \n- **GET FACULTADES / GET TIPO DE CONTRATOS / GET ESCUELAS**  \n    Obtención de datos maestros necesarios para la solicitud.\n    \n- **SOLICITUD_CONTRATACION**  \n    Creación de una nueva solicitud de contratación.\n    \n- **DIRECTOR_ENVIA_SEC / DIRECTOR_ENVIA_RRHH**  \n    Envío de la solicitud a los siguientes responsables.\n    \n- **RRHH_APRUEBA_SOLICITUD**  \n    Validación y aprobación de la solicitud por RRHH.\n    \n- **DIRECTO_AGREGA_DOCENTE**  \n    Agregado de docentes a la solicitud.\n    \n- **SECRETARIA_VERIFICA_RECEPCION / SECRETARIA_MARCA_RECIBIDO**  \n    Verificación y marcado de recepción por Secretaría.\n    \n- **SECRETARIA_ADJUNTA_ACTA**  \n    Adjuntar acta a la solicitud.\n    \n- **RRHH_GENERA_CONTRATO / ACTUALIZAR_STATUS_CONTRATO**  \n    Generación y actualización del estado del contrato.\n    \n- **FINALIZAR_PROCESO_CONTRATOS**  \n    Finalización del proceso de contratación.\n    \n\n### Variables utilizadas\n\n- `{{base_url}}`: URL base del entorno.\n    \n- Variables de autenticación y usuario para cada rol.\n    \n- Identificadores dinámicos (`{{facultyId}}`, `{{hiringRequestId}}`, `{{requestDetailId}}`).\n    \n\n### Consideraciones\n\n- Utiliza el entorno adecuado para las pruebas (por ejemplo, QA_GESTION_CONTRATOS).\n    \n- Los tests incluidos validan tanto flujos exitosos como errores esperados por permisos o datos inválidos.\n    \n- Puedes agregar más casos de prueba según los roles y reglas de negocio de tu sistema."
-				},
-				{
-					"name": "CP_79 VALIDAR RESTRICCION DE CREACION DUPLICADA DE EMPLEADO",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"// Test para validar restricción de creación duplicada de empleado",
-									"let res;",
-									"try {",
-									"    res = pm.response.json();",
-									"} catch (e) {",
-									"    res = {};",
-									"}",
-									"",
-									"// 1) Verificar que el status code sea 400",
-									"pm.test(\"Status code is 400\", function () {",
-									"    pm.response.to.have.status(400);",
-									"});",
-									"",
-									"// 2) Verificar que la respuesta tenga la propiedad 'message'",
-									"pm.test(\"Response has 'message' property\", function () {",
-									"    pm.expect(res).to.have.property('message');",
-									"});",
-									"",
-									"// 3) Verificar que el mensaje sea exactamente el esperado",
-									"pm.test(\"Message is exactly 'El usuario ya ha registrado sus datos personales'\", function () {",
-									"    pm.expect(res.message).to.eql('El usuario ya ha registrado sus datos personales');",
-									"});",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"first_name\": \"Monica\",\r\n  \"middle_name\": \"Courtney\",\r\n  \"last_name\": \"Miranda Garcia\",\r\n  \"civil_status\": \"Soltero\",\r\n  \"gender\": \"F\",\r\n  \"birth_date\": \"1989-04-23\",\r\n  \"professional_title\": \"Empleado\",\r\n  \"other_title\": false,\r\n  \"address\": \"Colonia Simulada\",\r\n  \"distrito_id\": 123,                 // <-- id real de 'San Isidro (Cabañas)'\r\n  \"nationality\": \"El Salvador\",\r\n  \"is_nationalized\": false,\r\n  \"dui_number\": \"51106587-2\",\r\n  \"dui_expiration_date\": \"2031-11-25\",\r\n  \"nup\": \"123456789632\",              // AFP/NUP\r\n  \"isss_number\": \"1478996520\",\r\n  \"alternate_mail\": \"courtney@ues.edu.sv\",\r\n  \"bank_id\": 1,                       // id del banco 'Banco Agrícola' en tu tabla banks\r\n  \"bank_account_type\": \"Cuenta de Ahorro\",\r\n  \"bank_account_number\": \"3345627645\",\r\n  \"telephone\": \"7456-8990\",\r\n  \"is_employee\": false\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/persons",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_80 PRIVACIDAD EN LA EXPOSICION DE LISTADO DE CANDIDATOS",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"console.log(\"Ejecutando CP_80 – Privacidad de datos en listados\");",
-									"",
-									"pm.test(\"Código 200 OK\", () => {",
-									"    pm.expect(pm.response.code).to.eql(200);",
-									"});",
-									"",
-									"const resText = pm.response.text();",
-									"const sensitive = [",
-									"    { key: \"dui\", label: \"DUI\" },",
-									"    { key: \"nit\", label: \"NIT\" },",
-									"    { key: \"isss\", label: \"ISSS\" },",
-									"    { key: \"nup\", label: \"NUP\" },",
-									"    { key: \"bank_\", label: \"Banco\" },",
-									"    { key: \"token\", label: \"Token\" }",
-									"];",
-									"",
-									"let leaks = [];",
-									"sensitive.forEach(field => {",
-									"    if (resText.match(new RegExp(field.key, \"i\"))) {",
-									"        leaks.push(field.label);",
+									"pm.test(\"Response headers are valid\", function () {",
+									"    // Check for common security and response headers",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    ",
+									"    // Optional: Check for other common headers if they exist",
+									"    var headers = pm.response.headers;",
+									"    if (headers.has(\"Content-Length\")) {",
+									"        pm.expect(parseInt(headers.get(\"Content-Length\"))).to.be.above(0);",
 									"    }",
 									"});",
 									"",
-									"",
-									"// Validar que los campos sensibles no estén presentes como valores (no solo como claves)",
-									"const sensitiveValues = [",
-									"    \"dui_number\", \"dui_text\", \"nit_number\", \"nit_text\", \"isss_number\", \"nup\", \"bank_account_number\", \"token\"",
-									"];",
-									"try {",
-									"    const resJson = pm.response.json();",
-									"    let valueLeaks = [];",
-									"    sensitiveValues.forEach(key => {",
-									"        if (resJson[key] && typeof resJson[key] === 'string' && resJson[key].trim() !== \"\" && resJson[key] !== \"N/A\") {",
-									"            valueLeaks.push(`${key}: ${resJson[key]}`);",
-									"        }",
-									"    });",
-									"    pm.test(\"No existen valores sensibles expuestos directamente en el JSON\", () => {",
-									"        pm.expect(valueLeaks, valueLeaks.length > 0 ? `Valores sensibles encontrados: ${valueLeaks.join(\", \")}` : undefined).to.be.empty;",
-									"    });",
-									"} catch (e) {",
-									"    console.log(\"No es posible analizar el JSON de la respuesta.\");",
-									"}",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token_candidato}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token_admin}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{base_url}}/persons/me",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"persons",
-								"me"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CP_89 LISTAR DOCUMENTOS POR CANDIDATO",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"console.log(\"Ejecutando CP_89 – Listar documentos por candidato\");",
-									"",
-									"pm.test(\"Código 200 OK\", () => {",
-									"    pm.expect(pm.response.code).to.eql(200);",
+									"// Test 5: Check response time is within acceptable range",
+									"pm.test(\"Response time is within acceptable range (< 2000ms)\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
 									"});",
 									"",
-									"const res = pm.response.json();",
-									"pm.test(\"Lista de documentos disponible\", () => {",
-									"    pm.expect(Array.isArray(res.data || res)).to.be.true;",
+									"pm.test(\"Response time is reasonable (< 5000ms)\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(5000);",
 									"});",
 									"",
-									"if (Array.isArray(res.data) && res.data.length > 0) {",
-									"    pm.test(\"Validar propiedades mínimas de cada documento\", () => {",
-									"        const requiredKeys = [",
-									"            \"id\", \"code\", \"request_status\", \"validated\", \"comments\", \"modality\", \"message\", \"fileName\", \"contract_type_id\", \"school_id\", \"created_at\", \"updated_at\", \"deleted_at\", \"last_status\", \"school\", \"contract_type\", \"status\"",
-									"        ];",
-									"        res.data.forEach((doc, idx) => {",
-									"            requiredKeys.forEach(key => {",
-									"                pm.expect(doc, `Falta la propiedad '${key}' en el documento del índice ${idx}`).to.have.property(key);",
-									"            });",
+									"// Additional validation: Check for data consistency",
+									"pm.test(\"Group type IDs are unique\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    if (jsonData.length > 0) {",
+									"        var ids = jsonData.map(function(groupType) {",
+									"            return groupType.id;",
 									"        });",
-									"    });",
-									"} else {",
-									"    console.log(\"ℹ️ Sin solicitudes pendientes\");",
-									"}",
-									""
+									"        ",
+									"        var uniqueIds = [...new Set(ids)];",
+									"        pm.expect(uniqueIds.length).to.equal(ids.length, \"All group type IDs should be unique\");",
+									"    }",
+									"});",
+									"",
+									"// Store data for use in other requests if needed",
+									"var responseData = pm.response.json();",
+									"if (responseData.length > 0) {",
+									"    pm.collectionVariables.set(\"groupTypeId\", responseData[0].id);",
+									"    pm.collectionVariables.set(\"groupTypeName\", responseData[0].name);",
+									"    console.log(\"Stored first group type - ID: \" + responseData[0].id + \", Name: \" + responseData[0].name);",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -9212,8 +6810,79 @@
 						{
 							"listen": "prerequest",
 							"script": {
+								"exec": [
+									"// Auto-refresh token if expired or missing",
+									"const tokenAdmin = pm.environment.get(\"token_admin\");",
+									"const tokenExpiry = pm.environment.get(\"token_admin_exp\");",
+									"const currentTime = Date.now();",
+									"",
+									"// Check if token is missing or expired",
+									"const isTokenExpired = !tokenExpiry || currentTime >= parseInt(tokenExpiry);",
+									"const isTokenMissing = !tokenAdmin;",
+									"",
+									"if (isTokenMissing || isTokenExpired) {",
+									"    console.log(\"Token is missing or expired. Fetching new token...\");",
+									"    ",
+									"    // Get login credentials from environment",
+									"    const baseUrl = pm.environment.get(\"base_url\");",
+									"    const email = pm.environment.get(\"email\");",
+									"    const password = pm.environment.get(\"password\");",
+									"    ",
+									"    if (!email || !password) {",
+									"        console.error(\"Login credentials (email/password) not found in environment variables\");",
+									"        return;",
+									"    }",
+									"    ",
+									"    // Make login request to get fresh token",
+									"    try {",
+									"        const loginResponse = await pm.sendRequest({",
+									"            url: `${baseUrl}/auth/login`,",
+									"            method: \"POST\",",
+									"            header: {",
+									"                \"Content-Type\": \"application/json\",",
+									"                \"Accept\": \"application/json\"",
+									"            },",
+									"            body: {",
+									"                mode: \"raw\",",
+									"                raw: JSON.stringify({",
+									"                    email: email,",
+									"                    password: password",
+									"                })",
+									"            }",
+									"        });",
+									"        ",
+									"        if (loginResponse.code === 200) {",
+									"            const responseData = loginResponse.json();",
+									"            ",
+									"            // Extract token from response (adjust path based on your API response structure)",
+									"            const newToken = responseData.token || responseData.access_token || responseData.data?.token;",
+									"            ",
+									"            if (newToken) {",
+									"                // Store the new token",
+									"                pm.environment.set(\"token_admin\", newToken);",
+									"                ",
+									"                // Set expiry time (default 1 hour if not provided by API)",
+									"                const expiresIn = responseData.expires_in || 3600; // seconds",
+									"                const expiryTime = Date.now() + (expiresIn * 1000);",
+									"                pm.environment.set(\"token_admin_exp\", expiryTime.toString());",
+									"                ",
+									"                console.log(\"Token refreshed successfully\");",
+									"            } else {",
+									"                console.error(\"Token not found in login response\");",
+									"            }",
+									"        } else {",
+									"            console.error(\"Login failed with status code:\", loginResponse.code);",
+									"        }",
+									"    } catch (error) {",
+									"        console.error(\"Error during token refresh:\", error);",
+									"    }",
+									"} else {",
+									"    console.log(\"Token is still valid\");",
+									"}"
+								],
+								"type": "text/javascript",
 								"packages": {},
-								"type": "text/javascript"
+								"requests": {}
 							}
 						}
 					],
@@ -9223,7 +6892,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{token_rrhh}}",
+									"value": "{{token_director}}",
 									"type": "string"
 								}
 							]
@@ -9232,52 +6901,176 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
+								"value": "application/json"
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token_rrhh}}",
-								"type": "text"
+								"value": "Bearer {{token_admin}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/hiringRequest/all/petitions/rrhh?page=1&per_page=10",
+							"raw": "{{base_url}}/groupTypes",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"hiringRequest",
-								"all",
-								"petitions",
-								"rrhh"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "per_page",
-									"value": "10"
-								}
+								"groupTypes"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "VERIFICAR PERSONA CREADA",
+					"name": "CP_69 REGISTRAR GRUPO EN CARGA ACADEMICA",
 					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ======================================================\r",
+									"// GENERAR CÓDIGO ÚNICO PARA GRUPO\r",
+									"// ======================================================\r",
+									"pm.variables.set(\"codigo_grupo\", \"G\" + pm.variables.get(\"randomCode\"));\r",
+									"console.log(\"Código generado para grupo:\", pm.variables.get(\"codigo_grupo\"));\r",
+									"\r",
+									"// Si no existe la variable, inicialízala\r",
+									"if (!pm.environment.get(\"course_id_incremental\")) {\r",
+									"    pm.environment.set(\"course_id_incremental\", 1); // o el valor inicial que desees\r",
+									"}\r",
+									"\r",
+									"// Obtén el valor actual\r",
+									"let currentCourseId = parseInt(pm.environment.get(\"course_id_incremental\"), 10);\r",
+									"\r",
+									"// Asigna el valor a una variable de entorno temporal para usar en el body\r",
+									"pm.environment.set(\"current_course_id\", currentCourseId);\r",
+									"\r",
+									"// Incrementa para la siguiente iteración\r",
+									"pm.environment.set(\"course_id_incremental\", currentCourseId + 1);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status 200\", () => pm.response.to.have.status(200));\r",
-									"const me = pm.response.json();\r",
-									"pm.test(\"Tiene los campos esperados\", () => {\r",
-									"  pm.expect(me).to.include.keys([\"first_name\", \"last_name\", \"email\"]);\r",
+									"// Test: Código de estado esperado (201 para éxito, 400 para error de grupo duplicado)",
+									"pm.test(\"Status code is 201 (creado) o 400 (grupo duplicado)\", function () {",
+									"    pm.expect([201, 400, 200]).to.include(pm.response.code);",
+									"});",
+									"",
+									"",
+									"// Test: Respuesta de error por grupo duplicado",
+									"if (pm.response.code === 400) {",
+									"    pm.test(\"Mensaje de error por grupo duplicado\", function () {",
+									"        pm.expect(pm.response.text()).to.include(\"ya existe un grupo registrado con ese numero de grupo registrado en el sistema\");",
+									"    });",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_director}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_director}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"number\": 15,\r\n  \"group_type_id\": 1,\r\n  \"course_id\": {{current_course_id}},\r\n  \"details\": [\r\n    {\r\n      \"day\": \"Lunes\",\r\n      \"start_hour\": \"08:00\",\r\n      \"finish_hour\": \"10:00\",\r\n      \"classroom\": \"Aula 101\"\r\n    }\r\n  ],\r\n  \"modality\": \"Presencial\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/academicLoad/1/groups",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"academicLoad",
+								"1",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CP_70 – ASIGNAR PROFESOR A GRUPO",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// ======================================================\r",
+									"// REEMPLAZAR ID DE GRUPO Y PROFESOR\r",
+									"// ======================================================\r",
+									"let groupId = pm.environment.get(\"group_id\") || 1;\r",
+									"let profesorId = pm.environment.get(\"professor_id\") || 25; // Cambiar si tu backend usa otro ID\r",
+									"\r",
+									"pm.variables.set(\"createdGroupId\", groupId);\r",
+									"pm.variables.set(\"profesorId\", profesorId);\r",
+									"\r",
+									"console.log(\"👨‍🏫 Asignando profesor ID:\", profesorId, \"al grupo ID:\", groupId);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"👨‍🏫 Ejecutando CP_70 – Asignar profesor a grupo\");\r",
+									"\r",
+									"pm.test(\"Código 200 OK o 422\", () => {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 422]);\r",
 									"});\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    console.log(\"✅ Profesor asignado correctamente.\");\r",
+									"} else {\r",
+									"    const res = pm.response.json();\r",
+									"    console.warn(\"⚠️ No se pudo asignar profesor:\", res.message);\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -9287,33 +7080,63 @@
 						}
 					],
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_director}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							},
 							{
 								"key": "Authorization",
 								"value": "Bearer {{token_admin}}",
 								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"people_id\": 25\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/persons/me",
+							"raw": "{{base_url}}/groups/{{createdGroupId}}/professor",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"persons",
-								"me"
+								"groups",
+								"{{createdGroupId}}",
+								"professor"
 							]
 						}
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Esta carpeta contiene solicitudes para la gestión de tipos de grupos en el sistema académico. Incluye los siguientes endpoints: listar los tipos de grupos registrados, registrar un grupo en una carga académica y asignar un profesor a un grupo específico. Utiliza estos endpoints para administrar la estructura y asignaciones de grupos dentro del sistema."
+		},
+		{
+			"name": "EMPLEADO",
+			"item": []
 		}
 	],
 	"auth": {
@@ -9468,66 +7291,6 @@
 		}
 	],
 	"variable": [
-		{
-			"key": "contract_type_id",
-			"value": ""
-		},
-		{
-			"key": "faculty_id",
-			"value": ""
-		},
-		{
-			"key": "facultyId",
-			"value": ""
-		},
-		{
-			"key": "schoolId",
-			"value": ""
-		},
-		{
-			"key": "facultyName",
-			"value": ""
-		},
-		{
-			"key": "schoolName",
-			"value": ""
-		},
-		{
-			"key": "hiringRequestId",
-			"value": ""
-		},
-		{
-			"key": "hiringRequestCode",
-			"value": ""
-		},
-		{
-			"key": "hiringRequestStatus",
-			"value": ""
-		},
-		{
-			"key": "hiringRequestLastStatus",
-			"value": ""
-		},
-		{
-			"key": "requestDetailId",
-			"value": ""
-		},
-		{
-			"key": "contractFlow",
-			"value": ""
-		},
-		{
-			"key": "token_Admin",
-			"value": ""
-		},
-		{
-			"key": "token_admin",
-			"value": ""
-		},
-		{
-			"key": "token_rrhh",
-			"value": ""
-		},
 		{
 			"key": "groupTypeId",
 			"value": ""

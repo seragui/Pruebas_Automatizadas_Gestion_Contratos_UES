@@ -25,7 +25,7 @@ from pages.login_page import LoginPage
 @pytest.mark.negative
 @pytest.mark.case("BITACORA_NOAUTH_01")
 @pytest.mark.tester("Griselda")
-def test_bitacora_sin_sesion_redirige_a_login(driver, base_url, evidencia):
+def test_cp22_bitacora_sin_sesion_redirige_a_login(driver, base_url, evidencia):
     """
     Escenario:
     1. Sin iniciar sesión, ir directamente a /bitacora.
@@ -77,7 +77,7 @@ def test_bitacora_sin_sesion_redirige_a_login(driver, base_url, evidencia):
 @pytest.mark.negative
 @pytest.mark.case("BITACORA_NOAUTH_02")
 @pytest.mark.tester("Griselda")
-def test_bitacora_usuario_sin_permiso_no_puede_acceder(
+def test_cp22_bitacora_usuario_sin_permiso_no_puede_acceder(
     driver,
     base_url,
     financiero_creds,   # o el rol que NO deba ver bitácora
@@ -144,7 +144,7 @@ def test_bitacora_usuario_sin_permiso_no_puede_acceder(
 @pytest.mark.regression
 @pytest.mark.case("BITACORA_NOAUTH_03")
 @pytest.mark.tester("Griselda")
-def test_bitacora_admin_puede_ver_listado(
+def test_cp22_bitacora_admin_puede_ver_listado(
     driver,
     base_url,
     admin_creds,

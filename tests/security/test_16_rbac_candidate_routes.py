@@ -64,7 +64,7 @@ PERMITE_ACCESO_ERRONEO = [
     pytest.param("/reportes/contrataciones-por-escuela-por-candidato", "Reportes",
                  marks=pytest.mark.xfail(strict=True, reason="Bug RBAC: permite acceso")),
     pytest.param("/ciclos", "Ciclos",
-                 marks=pytest.mark.xfail(strict=True, reason="Bug RBAC: permite acceso")),  # quítala si candidato SÍ debe ver ciclos
+                 marks=pytest.mark.xfail(strict=True, reason="Bug RBAC: permite acceso")),  #
 ]
 
 # ==========================
@@ -96,7 +96,7 @@ def login_as_candidate(driver, base_url):
 @pytest.mark.case("RBAC_CANDIDATO_REDIRECCION_01")
 @pytest.mark.tester("Ronald")
 @pytest.mark.parametrize("ruta", REDIRIGE_A_INICIO)
-def test_rbac_candidato_rutas_redirigen_a_inicio(driver, base_url, login_as_candidate, evidencia, ruta):
+def test_cp43_rbac_candidato_rutas_redirigen_a_inicio(driver, base_url, login_as_candidate, evidencia, ruta):
     """
     Escenario:
     1. Candidato inicia sesión.
@@ -130,7 +130,7 @@ def test_rbac_candidato_rutas_redirigen_a_inicio(driver, base_url, login_as_cand
 @pytest.mark.case("RBAC_CANDIDATO_BUG_RUTAS_01")
 @pytest.mark.tester("Ronald")
 @pytest.mark.parametrize("ruta,titulo_esperado", PERMITE_ACCESO_ERRONEO)
-def test_rbac_candidato_rutas_deberian_bloquear(driver, base_url, login_as_candidate, evidencia, ruta, titulo_esperado):
+def test_cp43_rbac_candidato_rutas_deberian_bloquear(driver, base_url, login_as_candidate, evidencia, ruta, titulo_esperado):
     """
     Esperamos COMPORTAMIENTO CORRECTO (bloquear/redirigir).
     Sabemos que actualmente hay un bug: el candidato puede ver pantallas

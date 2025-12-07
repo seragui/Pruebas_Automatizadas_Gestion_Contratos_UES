@@ -26,7 +26,7 @@ from pages.director_carga_academica_page import DirectorCargaAcademicaPage
 @pytest.mark.regression
 @pytest.mark.case("RRHH_NO_ACCESO_CARGA_ACADEMICA_01")
 @pytest.mark.tester("Jose")
-def test_rrhh_no_puede_acceder_a_carga_academica(
+def test_cp67_rrhh_no_puede_acceder_a_carga_academica(
     driver,
     base_url,
     rrhh_creds,
@@ -102,7 +102,7 @@ def test_rrhh_no_puede_acceder_a_carga_academica(
 @pytest.mark.regression
 @pytest.mark.case("DIRECTOR_ACCESO_CARGA_ACADEMICA_01")
 @pytest.mark.tester("Jose")
-def test_director_puede_acceder_a_carga_academica(
+def test_cp67_director_puede_acceder_a_carga_academica(
     driver,
     base_url,
     director_creds,
@@ -174,7 +174,7 @@ def test_director_puede_acceder_a_carga_academica(
 @pytest.mark.regression
 @pytest.mark.case("DIRECTOR_CARGA_ACADEMICA_01")
 @pytest.mark.tester("Jose")
-def test_director_no_puede_generar_carga_academica_duplicada(
+def test_cp66_director_no_puede_generar_carga_academica_duplicada(
     driver,
     base_url,
     director_creds,
@@ -249,7 +249,7 @@ def test_director_no_puede_generar_carga_academica_duplicada(
 @pytest.mark.regression
 @pytest.mark.case("DIRECTOR_CARGA_ACADEMICA_LISTAR")
 @pytest.mark.tester("Jose")
-def test_director_puede_listar_cargas_academicas(
+def test_cp67_director_puede_listar_cargas_academicas(
     driver,
     base_url,
     director_creds,
@@ -308,7 +308,7 @@ def test_director_puede_listar_cargas_academicas(
 @pytest.mark.regression
 @pytest.mark.case("DIRECTOR_CARGA_ACADEMICA_BUSQUEDA_OK")
 @pytest.mark.tester("Jose")
-def test_director_busca_carga_academica_existente(
+def test_cp68_director_busca_carga_academica_existente(
     driver,
     base_url,
     director_creds,
@@ -374,7 +374,7 @@ def test_director_busca_carga_academica_existente(
 @pytest.mark.regression
 @pytest.mark.case("DIRECTOR_CARGA_ACADEMICA_BUSQUEDA_SIN_RESULTADOS")
 @pytest.mark.tester("Jose")
-def test_director_busca_carga_academica_inexistente(
+def test_cp68_director_busca_carga_academica_inexistente(
     driver,
     base_url,
     director_creds,

@@ -19,7 +19,7 @@ from pages.candidate_upload_documents import CandidateUploadDocumentsPage
 @pytest.mark.regression
 @pytest.mark.case("CANDIDATO_DOCUMENTOS_01")
 @pytest.mark.tester("Jose")
-def test_candidato_ve_modal_subir_documentos(
+def test_cp15_candidato_ve_modal_subir_documentos(
     driver,
     base_url,
     candidate_creds,

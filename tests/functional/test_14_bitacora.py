@@ -21,7 +21,7 @@ from pages.bitacora_page import BitacoraPage
 @pytest.mark.regression
 @pytest.mark.case("BITACORA_LISTADO_01")
 @pytest.mark.tester("Griselda")
-def test_bitacora_listado_muestra_registros(
+def test_cp19_bitacora_listado_muestra_registros(
     driver,
     base_url,
     admin_creds,
@@ -84,7 +84,7 @@ def test_bitacora_listado_muestra_registros(
 @pytest.mark.regression
 @pytest.mark.case("BITACORA_FILTRO_01")
 @pytest.mark.tester("Griselda")
-def test_bitacora_filtrar_por_termino_existente(
+def test_cp20_bitacora_filtrar_por_termino_existente(
     driver,
     base_url,
     admin_creds,
@@ -156,7 +156,7 @@ def test_bitacora_filtrar_por_termino_existente(
 @pytest.mark.regression
 @pytest.mark.case("BITACORA_FILTRO_02")
 @pytest.mark.tester("Griselda")
-def test_bitacora_filtrar_por_termino_inexistente_muestra_sin_datos(
+def test_cp20_bitacora_filtrar_por_termino_inexistente_muestra_sin_datos(
     driver,
     base_url,
     admin_creds,
@@ -217,7 +217,7 @@ def test_bitacora_filtrar_por_termino_inexistente_muestra_sin_datos(
 @pytest.mark.regression
 @pytest.mark.case("BITACORA_PAGINACION_01")
 @pytest.mark.tester("Griselda")
-def test_bitacora_paginacion_siguiente_pagina_cambia_registros(
+def test_cp21_bitacora_paginacion_siguiente_pagina_cambia_registros(
     driver,
     base_url,
     admin_creds,

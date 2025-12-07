@@ -85,7 +85,7 @@ def random_phone_sv_formateado() -> str:
 @pytest.mark.regression
 @pytest.mark.case("CANDIDATO_DATOS_PERSONALES_01")
 @pytest.mark.tester("Jose")
-def test_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
+def test_cp12_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
     """
     Escenario:
     1. El candidato inicia sesión en el sistema.
@@ -340,7 +340,7 @@ def test_candidato_ingresa_datos_personales(driver, base_url, candidate_creds, e
     ),
     strict=False,  # Cuando se corrija, XPASS pero sin romper la suite
 )
-def test_acceso_no_autorizado_crear_informacion(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
+def test_cp12_acceso_no_autorizado_crear_informacion(driver, base_url, candidate_creds, evidencia, candidate_name_cache):
     allure.dynamic.title(
         "RBAC candidato - Asistente Administrativo NO debe acceder a /información-personal (xfail por defecto conocido)"
     )

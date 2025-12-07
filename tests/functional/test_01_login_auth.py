@@ -52,7 +52,7 @@ def test_cp01_login_success(driver, base_url, qa_creds, evidencia):
     ("noexiste@tu-app.com", "SuperSecreta123!", "usuario inexistente"),
     ("correo-malo", "SuperSecreta123!", "email inválido"),
 ])
-def test_login_fail_cases(driver, base_url, email, password, reason, evidencia):
+def test_cp01_login_fail_cases(driver, base_url, email, password, reason, evidencia):
     login = LoginPage(driver, base_url)
 
     with allure.step("Abrir la pantalla de login"):

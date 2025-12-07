@@ -23,7 +23,7 @@ from pages.users_page import UsersPage
 @pytest.mark.smoke
 @pytest.mark.case("USUARIOS_LISTADO_CARGA_TABLA_01")
 @pytest.mark.tester("Ronald")
-def test_listado_carga_headers_y_filas(driver, base_url, qa_creds, evidencia):
+def test_cp05_listado_carga_headers_y_filas(driver, base_url, qa_creds, evidencia):
     allure.dynamic.title("Listado de usuarios - Carga de tabla, encabezados y filas")
     
     # Login
@@ -72,7 +72,7 @@ def test_listado_carga_headers_y_filas(driver, base_url, qa_creds, evidencia):
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_LISTADO_PAGINACION_01")
 @pytest.mark.tester("Ronald")
-def test_listado_paginacion_siguiente_y_anterior(driver, base_url, qa_creds, evidencia):
+def test_cp05_listado_paginacion_siguiente_y_anterior(driver, base_url, qa_creds, evidencia):
     allure.dynamic.title("Listado de usuarios - Paginación siguiente y anterior")
 
     # Login
@@ -128,7 +128,7 @@ def test_listado_paginacion_siguiente_y_anterior(driver, base_url, qa_creds, evi
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_LISTADO_ORDENAR_POR_NOMBRE_01")
 @pytest.mark.tester("Ronald")
-def test_listado_ordenar_por_nombre(driver, base_url, qa_creds, evidencia):
+def test_cp05_listado_ordenar_por_nombre(driver, base_url, qa_creds, evidencia):
     allure.dynamic.title("Listado de usuarios - Ordenar por columna Nombre")
     def norm(xs):
         return [ (x or "").strip().lower() for x in xs ]
@@ -189,7 +189,7 @@ def test_listado_ordenar_por_nombre(driver, base_url, qa_creds, evidencia):
 @pytest.mark.regression
 @pytest.mark.case("USUARIOS_LISTADO_CAMBIAR_TAMANO_PAGINA_01")
 @pytest.mark.tester("Ronald")
-def test_listado_cambiar_tamano_pagina(driver, base_url, qa_creds, evidencia):
+def test_cp05_listado_cambiar_tamano_pagina(driver, base_url, qa_creds, evidencia):
     
     allure.dynamic.title("Listado de usuarios - Cambiar tamaño de página (page size)")
     # Login
